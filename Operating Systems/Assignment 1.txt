@@ -1,0 +1,141 @@
+﻿CS2503 Lab Assignment 1		20% due Sat 21 @ 22:00 		Student ID #  119377263
+
+Although Canvas should identify, just enter your id at the top right above instead of 1...9.
+
+Run on csgate for consistency, and copy relevant sequences into this template for submission.
+
+Submit as a document… plain/rich text, doc(x) or preferably .odt 
+BUT NOT Mac pages or as a link to any cloud hosted service.
+
+And of course, use xargs where convenient, simple to use anyway.
+
+
+For the directory share 	/users/coursework/cs2503/testdata
+
+    1. Find all files with extension .text
+       
+
+SOLUTION
+
+$ find . -name '*.text' -type f
+
+./cpio.text
+./find.text
+./grep.text
+./subdir/sed.text
+./subdir/tar.text
+./subdir/tr.text
+./subdir/dir.text
+
+ANOTHER SOLUTION?
+
+$ ls -R | grep -E "*.text"
+
+cpio.text
+find.text
+grep.text
+dir.text
+sed.text
+tar.text
+tr.text
+       								
+    2. compute their overall sizes  (of filenames ending in (or with extensions)  .text) as
+        1. bytes
+        2. blocks
+        3. K (as in 2^10)
+
+
+SOLUTIONS
+
+1. $ find . -name "*.text" -type f | xargs -d '\n' du
+
+4       ./cpio.text
+60      ./find.text
+40      ./grep.text
+12      ./subdir/sed.text
+12      ./subdir/tar.text
+4       ./subdir/tr.text
+8       ./subdir/dir.text
+
+
+2. $ find . -name "*.text" -type f | xargs -d '\n' du -b
+
+2255    ./cpio.text
+56774   ./find.text
+33518   ./grep.text
+9644    ./subdir/sed.text
+10925   ./subdir/tar.text
+3602    ./subdir/tr.text
+7717    ./subdir/dir.text
+
+
+3. $ find . -name "*.text" -type f | xargs -d '\n' du -h
+
+4.0K    ./cpio.text
+60K     ./find.text
+40K     ./grep.text
+12K     ./subdir/sed.text
+12K     ./subdir/tar.text
+4.0K    ./subdir/tr.text
+8.0K    ./subdir/dir.text
+
+
+ANOTHER SOLUTION TO ANY ONE OF ABOVE?
+$ du -a . | grep -E "*.text"
+
+4       ./cpio.text
+60      ./find.text
+40      ./grep.text
+12      ./subdir/sed.text
+12      ./subdir/tar.text
+4       ./subdir/tr.text
+8       ./subdir/dir.text
+
+
+    
+    3. With respect to the contents of files containing the word ‘directory’ and the following variants: directory’s, directories, directories’  but excluding prefix variants such as sub- or super- 
+        1. list all files which contain any of the requested directory word variants listed above;
+        2. count the number of files containing them
+        3. count the total number of lines containing them
+        4. count the actual number of occurrences, i.e. include multiple occurrences in a line.
+
+SOLUTIONS
+1. $ grep -rilE "\sdirectory|\sdirectory's|\sdirectories|\sdirectories'"
+
+find.text
+grep.text
+chown.txt
+cp.txt
+ls.txt
+ed.txt
+subdir/man.txt
+subdir/mv.txt
+subdir/nano.txt
+subdir/tar.text
+subdir/dir.text
+
+
+2. $ grep -rilE "\sdirectory|\sdirectory's|\sdirectories|\sdirectories'" | wc -l
+
+11
+
+
+3. $ grep -riE "\sdirectory|\sdirectory's|\sdirectories|\sdirectories'" | wc -l
+
+92
+
+
+4. $ grep -oriE "\sdirectory|\sdirectory's|\sdirectories|\sdirectories'" | wc -l
+
+97
+
+
+
+Additional : This selects all files which contain a variant of directory but does not include those that also include variants.
+$ grep -rilE "directory|directory's|directories|directories'" | xargs grep -riLE "[a-z+-]directory|[a-z+-]directory's|[a-z+-]directories|[a-z+-]directories'"
+
+chown.txt
+ed.txt
+subdir/man.txt
+subdir/nano.txt
+
