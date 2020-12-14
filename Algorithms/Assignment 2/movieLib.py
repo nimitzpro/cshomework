@@ -117,6 +117,7 @@ class MovieLib:
             return self.bstree.add(Movie(title, date, runtime))
 
         self.bstree = BSTNode(Movie(title, date, runtime))
+        return self.bstree
 
     def remove(self, title):
         """ Remove and return the a movie object with the given title, if there.
@@ -224,7 +225,7 @@ def build_library(filename):
     """ Return a library of Movie files built from filename """
 
     # open the file
-    file = open(filename, 'r')
+    file = open(filename, 'r', encoding="utf8")
 
     # create the library
     library = MovieLib()
@@ -250,4 +251,8 @@ MovieLib._testadd()
 print('++++++++++')
 MovieLib._test()
 
-# newlibrary = build_library('smallmovies.txt')
+newlibrary = build_library('movies.txt')
+
+# import os
+# print(os.listdir())
+# print(os.getcwd())

@@ -56,6 +56,29 @@ INSERT INTO Covid_Diagnosis VALUES
 (2, "2020/11/02", "2020/21/02");
 
 CREATE VIEW COVID_NUMBERS AS
-SELECT COUNT(c.PCounty) FROM Person as p
+SELECT c.PCounty, COUNT(c.PCounty) FROM Person as p
 JOIN Covid_Diagnosis as c
 WHERE p.ppsn = c.ppsn
+
+
+
+CREATE TRIGGER Add_Visit BEFORE INSERT ON Visit
+	SELECT * FROM Covid_Diagnosis
+	FOR EACH ROW
+	BEGIN
+		IF(new.PPSN == Covid_Diagnosis.PPSN AND 
+			new.StartDateOfVisit > Covid_Diagnosis.DiagnosisDate AND new.StartDateOfVisit < Covid_Diagnosis.IsolationEndDates) THEN
+			SIGNAL SQLSTATE '45000'
+   			SET MESSAGE_TEXT = 'Person should be in isolation, not out drinking';
+		END IF;
+	
+		IF(new.PLN NOT IN
+		(SELECT p.PLN FROM Pubs WHERE p.PCounty IN 
+		(SELECT n.County1, n.County2 FROM Person AS p JOIN NeighbourCounty AS n
+		WHERE p.PCounty = n.County1))) THEN
+		
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Person is trying to visit a pub outside of their county or their county''s neighbours'		
+		END IF;
+	
+	END
