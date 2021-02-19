@@ -1,0 +1,35 @@
+Address = 500
+Bytes/block = 64 bytes
+
+500 % 64 = 52
+
+-> Offset = 52
+
+64 bytes/block = 2^6 bytes/block, -> n = 6 (6-bit block offset)
+
+Block Offset = byte address % bytes/block
+-> 110100
+
+Block Offset Length = log2(bytes/block)
+-> 6
+
+
+Memory Block= Byte Address/Bytes per block
+- > 7
+
+Block Index = Memory Block % No. of blocks 
+-> 7
+
+Block Index Length = log2(64(number of blocks))
+
+full thing = TAG | BI | BO
+-> TAG(length 20) | 000111 | 110100
+
+----------------------------------
+
+16 = offset
+31 = memory block
+31 = block index
+
+TAG(length 20) | 011111 | 010000
+
