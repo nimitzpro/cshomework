@@ -26,13 +26,13 @@ class Thread:
         self.priority = priority
 
     def __str__(self):
-        return "PID: " + str(self.pid) + ", priority: " + str(self.priority) + ", exec_time: " + str(self.exec_time)
+        return "PID: " + str(self.pid) + ", priority: " + str(self.priority) + ", exec_time: " + str(self.exec_time) + ", blocked: " + str(self.io_processes)
         # io_process := {Time in code at which to fetch io : Cycles to fetch io}
 
 
 def execute(thread):
     duration = 2**thread.priority
-    print("attempting to run thread ", str(thread))
+    print("Attempting to run thread ", str(thread))
 
     if thread.status == "Blocked":
         if thread.io_processes[max(thread.io_processes.keys())] == 0:
@@ -61,7 +61,7 @@ def execute(thread):
                 actual_time = io
                 thread.status = "Blocked"
     
-    # time.sleep(thread.exec_time - actual_time) Sleep for time
+    time.sleep(thread.exec_time - actual_time) # Sleep for time
     thread.exec_time = actual_time
     if thread.exec_time == 0:
         thread.status = "Complete"
@@ -74,16 +74,12 @@ def idle_process():
 
 system = System()
 for index, queue in enumerate(system.queues):
-    for i in range(random.randint(1, 2)):
+    for i in range(random.randint(1, 10)): # Generate between 1 and N threads per queue
         thread = Thread(random.randint(1, 999999), random.randint(1, 100), {}, index)
 
         thread.io_processes[random.randint(0, thread.exec_time)] = random.randint(0, 5)
             
         queue.append(thread)
-            
-# for queue in system.queues:
-# generate processes
-
 
 while system.running:
     for queue in system.queues:
@@ -96,7 +92,7 @@ while system.running:
             break
 
     while queuesEmpty and len(system.blocked_queue) == 0:
-        print(idle_process()) # if the queues are empty, run the idle process. it has the lowest priority of any process
+        print(idle_process()) # if the queues are empty, run the idle process. It has the lowest priority of any process
     
     a = 0
     while a < len(system.queues):
