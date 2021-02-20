@@ -37,7 +37,7 @@ def execute(thread):
     if thread.status == "Blocked":
         if thread.io_processes[max(thread.io_processes.keys())] == 0:
             thread.status = "Ready"
-            thread.io_processes.remove(thread.io_processes[max(thread.io_processes.keys())])
+            thread.io_processes.pop(max(thread.io_processes.keys()))
         else:
             thread.io_processes[max(thread.io_processes.keys())] -= 1
             return thread.status
@@ -61,21 +61,25 @@ def execute(thread):
                 actual_time = io
                 thread.status = "Blocked"
     
-    time.sleep(thread.exec_time - actual_time)
+    # time.sleep(thread.exec_time - actual_time) Sleep for time
     thread.exec_time = actual_time
     if thread.exec_time == 0:
         thread.status = "Complete"
     return thread.status
 
 def idle_process():
-    time.sleep(3000)
+    time.sleep(5)
     return "Idling..."
 
 
 system = System()
 for index, queue in enumerate(system.queues):
-    for i in range(random.randint(1, 20)):
-        queue.append(Thread(random.randint(1, 999999), random.randint(1, 100), {}, index))
+    for i in range(random.randint(1, 2)):
+        thread = Thread(random.randint(1, 999999), random.randint(1, 100), {}, index)
+
+        thread.io_processes[random.randint(0, thread.exec_time)] = random.randint(0, 5)
+            
+        queue.append(thread)
             
 # for queue in system.queues:
 # generate processes
@@ -83,7 +87,7 @@ for index, queue in enumerate(system.queues):
 
 while system.running:
     for queue in system.queues:
-        print([str(thread) for thread in queue])
+        print("Queues: ", [str(thread) for thread in queue])
 
     queuesEmpty = True
     for queue in system.queues:
@@ -111,7 +115,7 @@ while system.running:
 
         a += 1
 
-
+    print("Blocked queue: ", [str(thread) for thread in system.blocked_queue])
     for p_index, process in enumerate(system.blocked_queue):
         execute(process)
         if process.status != "Blocked":
