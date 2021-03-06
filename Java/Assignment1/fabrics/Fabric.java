@@ -1,5 +1,10 @@
 package fabrics;
 
+/**
+* Fabric class, this class is the template for all types of fabrics
+*
+* @author Alexander Stradnic (ID 119377263)
+*/
 public abstract class Fabric{
     protected String name;
     protected float ppu;
@@ -19,7 +24,5 @@ public abstract class Fabric{
     public float getE(){
         return this.e;
     }
-
-    public abstract String getSource();
     
 }

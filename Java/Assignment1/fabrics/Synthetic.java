@@ -1,5 +1,10 @@
 package fabrics;
 
+/**
+* Synthetic class, this class is the template for all synthetic fabrics
+*
+* @author Alexander Stradnic (ID 119377263)
+*/
 public class Synthetic extends Fabric{
 
     public Synthetic(String name, float price_per_unit){

@@ -4,6 +4,12 @@ import garments.*;
 import java.util.List;
 import java.util.ArrayList;
 
+
+/**
+* Main class, this class tests different instances of Garments and Fabrics
+*
+* @author Alexander Stradnic (ID 119377263)
+*/
 public class Main {
     public static void main(final String[] args){
 

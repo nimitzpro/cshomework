@@ -3,7 +3,9 @@ package garments;
 import fabrics.*;
 
 /**
-* Garment class, this is the superclasses for all other clothes
+* Garment class, this is the superclass for all other clothes/garments
+*
+* @author Alexander Stradnic (ID 119377263)
 */
 public abstract class Garment{
     protected String name;
@@ -31,7 +33,7 @@ public abstract class Garment{
         System.out.println("Itemised bill for " + this.name);
 
         System.out.print("Made of " + unitsStr + " units of " + fname);
-        if(this.fabric instanceof Natural) System.out.println(" made of " + this.fabric.getSource());
+        if(this.fabric instanceof Natural) System.out.println(" made of " + ((Natural) this.fabric).getSource());
         else System.out.println();
 
         System.out.println("Cost\t\t\tCost * Units\tTotal");
