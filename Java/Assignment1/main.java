@@ -11,6 +11,9 @@ import java.util.ArrayList;
 * @author Alexander Stradnic (ID 119377263)
 */
 public class Main {
+    /**
+     * main method - entry point into the program
+     */
     public static void main(final String[] args){
 
         Natural cotton = new Natural("cotton", 2.0f, "gossypium");

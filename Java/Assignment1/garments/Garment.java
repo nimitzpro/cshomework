@@ -8,20 +8,35 @@ import fabrics.*;
 * @author Alexander Stradnic (ID 119377263)
 */
 public abstract class Garment{
+    /** A name for the instance of garment */
     private String name;
+    /** The units of fabric needed to make said garment */
     private float units;
+    /** The type of fabric needed */
     private Fabric fabric;
     
+    /**
+     * Generic constructor for all Garments
+     * @param name
+     * @param units
+     * @param fabric
+     */
     public Garment(String name, float units, Fabric fabric){
         this.name = name;
         this.units = units;
         this.fabric = fabric;
     }
 
+    /**
+     * name getter
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     * Prints a breakdown of the cost to produce this Garment
+     */
     public void printItemisedBill(){
         String unitsStr = Float.toString(this.units);
         String fname = this.fabric.getName();
@@ -43,6 +58,9 @@ public abstract class Garment{
         
     }
 
+    /**
+     * Used to print the purpose of the Garment
+     */
     public abstract void printPurpose();
 
 }

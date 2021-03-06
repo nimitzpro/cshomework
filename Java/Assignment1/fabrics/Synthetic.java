@@ -7,13 +7,14 @@ package fabrics;
 */
 public class Synthetic extends Fabric{
 
+    /**
+     * Synthetic Fabric Constructor
+     * @param name
+     * @param price_per_unit
+     */
     public Synthetic(String name, float price_per_unit){
         super(name, price_per_unit);
         this.setE(2.0f);
     }
-
-    public String getSource(){
-        return "No source";
-    }
-
+    
 }
