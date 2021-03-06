@@ -28,15 +28,16 @@ public abstract class Garment{
         String eS = Float.toString(e);
         float ppu = this.fabric.getPPU();
 
-        System.out.println("Itemised bill for " + fname);
+        System.out.println("Itemised bill for " + this.name);
 
         System.out.print("Made of " + unitsStr + " units of " + fname);
         if(this.fabric instanceof Natural) System.out.println(" made of " + this.fabric.getSource());
         else System.out.println();
 
-        System.out.println("environment tax : " + unitsStr + " * " + eS + " = " + Float.toString(this.units * e));
-        System.out.println("base price : " + unitsStr + " * "  + Float.toString(ppu) + " = " + Float.toString(this.units * ppu));
-        System.out.println("grand total : " + unitsStr + " * " + Float.toString(ppu+e) + " = " + Float.toString(this.units * (e+ppu)));
+        System.out.println("Cost\t\t\tCost * Units\tTotal");
+        System.out.println("environment tax : \t" + unitsStr + " * " + eS + "\t" + Float.toString(this.units * e));
+        System.out.println("base price : \t\t" + unitsStr + " * "  + Float.toString(ppu) + "\t" + Float.toString(this.units * ppu));
+        System.out.println("grand total : \t\t" + unitsStr + " * " + Float.toString(ppu+e) + "\t" + Float.toString(this.units * (e+ppu)));
         
     }
 
