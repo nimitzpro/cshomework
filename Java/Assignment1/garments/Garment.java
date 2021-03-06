@@ -1,10 +1,14 @@
+package garments;
+
+import fabrics.*;
+
 /**
 * Garment class, this is the superclasses for all other clothes
 */
-abstract class Garment{
-    private String name;
-    private float units;
-    private String fabric;
+public abstract class Garment{
+    protected String name;
+    protected float units;
+    protected Fabric fabric;
     
     public Garment(String name, float units, Fabric fabric){
         this.name = name;
@@ -16,23 +20,26 @@ abstract class Garment{
         return this.name;
     }
 
-    public void getItemisedBill(){
-        String unitsStr = this.units.toString();
+    public void printItemisedBill(){
+        String unitsStr = Float.toString(this.units);
         String fname = this.fabric.getName();
 
         float e = this.fabric.getE();
+        String eS = Float.toString(e);
         float ppu = this.fabric.getPPU();
 
         System.out.println("Itemised bill for " + fname);
 
-        System.out.print(System.out.println("Made of " + unitsStr + " units of " + fname);
-        if(Natural.isInstance(this.fabric)) System.out.println(" made of " + this.fabric.getSource());
+        System.out.print("Made of " + unitsStr + " units of " + fname);
+        if(this.fabric instanceof Natural) System.out.println(" made of " + this.fabric.getSource());
         else System.out.println();
 
-        System.out.println("environment tax : " + unitsStr + " * " + e.toString() + " = " + (this.units * e).toString());
-        System.out.println("base price : " + unitsStr + " * "  + ppu.toString() + " = " + (this.units * ppu).toString());
-        System.out.println("grand total : " + unitsStr + " * " + (ppu+e).toString() " = " + (this.units * (e+ppu)).toString());
+        System.out.println("environment tax : " + unitsStr + " * " + eS + " = " + Float.toString(this.units * e));
+        System.out.println("base price : " + unitsStr + " * "  + Float.toString(ppu) + " = " + Float.toString(this.units * ppu));
+        System.out.println("grand total : " + unitsStr + " * " + Float.toString(ppu+e) + " = " + Float.toString(this.units * (e+ppu)));
         
     }
+
+    public abstract void printPurpose();
 
 }

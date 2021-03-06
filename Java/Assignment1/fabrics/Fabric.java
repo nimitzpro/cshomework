@@ -1,7 +1,9 @@
-public class Fabric{
-    private String name;
-    private float ppu;
-    private float e = 0.0;
+package fabrics;
+
+public abstract class Fabric{
+    protected String name;
+    protected float ppu;
+    protected float e = 0.0f;
 
     public Fabric(String name, float price_per_unit){
         this.name = name;
@@ -17,5 +19,7 @@ public class Fabric{
     public float getE(){
         return this.e;
     }
+
+    public abstract String getSource();
     
 }

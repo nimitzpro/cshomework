@@ -1,3 +1,7 @@
+package garments;
+
+import fabrics.Fabric;
+
 public class Shirt extends Garment{
 
     public Shirt(String name, float units, Fabric fabric){
@@ -5,7 +9,7 @@ public class Shirt extends Garment{
     }
 
     public void printPurpose(){
-        System.out.println(this.name + " cover the body");
+        System.out.println(this.name + " covers the body");
     }
 
 }

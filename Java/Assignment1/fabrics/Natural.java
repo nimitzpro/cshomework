@@ -1,3 +1,5 @@
+package fabrics;
+
 public class Natural extends Fabric{
     private String source;
 
@@ -6,6 +8,7 @@ public class Natural extends Fabric{
         this.source = source;
     }
 
+    @Override
     public String getSource(){
         return this.source;
     }

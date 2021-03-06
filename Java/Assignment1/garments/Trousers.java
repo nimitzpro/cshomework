@@ -1,3 +1,7 @@
+package garments;
+
+import fabrics.Fabric;
+
 public class Trousers extends Garment{
 
     public Trousers(String name, float units, Fabric fabric){
