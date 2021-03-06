@@ -8,9 +8,9 @@ import fabrics.*;
 * @author Alexander Stradnic (ID 119377263)
 */
 public abstract class Garment{
-    protected String name;
-    protected float units;
-    protected Fabric fabric;
+    private String name;
+    private float units;
+    private Fabric fabric;
     
     public Garment(String name, float units, Fabric fabric){
         this.name = name;
@@ -36,7 +36,7 @@ public abstract class Garment{
         if(this.fabric instanceof Natural) System.out.println(" made of " + ((Natural) this.fabric).getSource());
         else System.out.println();
 
-        System.out.println("Cost\t\t\tCost * Units\tTotal");
+        System.out.println("Cost\t\t\tUnits * Cost\tTotal");
         System.out.println("environment tax : \t" + unitsStr + " * " + eS + "\t" + Float.toString(this.units * e));
         System.out.println("base price : \t\t" + unitsStr + " * "  + Float.toString(ppu) + "\t" + Float.toString(this.units * ppu));
         System.out.println("grand total : \t\t" + unitsStr + " * " + Float.toString(ppu+e) + "\t" + Float.toString(this.units * (e+ppu)));

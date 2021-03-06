@@ -13,7 +13,6 @@ public class Natural extends Fabric{
         this.source = source;
     }
 
-    @Override
     public String getSource(){
         return this.source;
     }

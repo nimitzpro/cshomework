@@ -6,9 +6,9 @@ package fabrics;
 * @author Alexander Stradnic (ID 119377263)
 */
 public abstract class Fabric{
-    protected String name;
-    protected float ppu;
-    protected float e = 0.0f;
+    private String name;
+    private float ppu;
+    private float e = 0.0f;
 
     public Fabric(String name, float price_per_unit){
         this.name = name;
@@ -22,6 +22,10 @@ public abstract class Fabric{
         return this.ppu;
     }
     public float getE(){
+        return this.e;
+    }
+    public float setE(float e){
+        this.e = e;
         return this.e;
     }
     

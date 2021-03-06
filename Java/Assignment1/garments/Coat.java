@@ -10,14 +10,11 @@ import fabrics.*;
 */
 public class Coat extends Garment{
 
-    public Coat(String name, float units, Synthetic fabric){
-        super(name, units, fabric);
-    }
-    public Coat(String name, float units, Natural fabric){
+    public Coat(String name, float units, Fabric fabric){
         super(name, units, fabric);
     }
 
     public void printPurpose(){
-        System.out.println(this.name + " provides extra protection against the elements");
+        System.out.println(this.getName() + " provides extra protection against the elements");
     }
 }

@@ -14,7 +14,7 @@ public class Trousers extends Garment{
     }
 
     public void printPurpose(){
-        System.out.println(this.name + " cover the legs");
+        System.out.println(this.getName() + " cover the legs");
     }
 
 }
