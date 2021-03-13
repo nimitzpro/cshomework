@@ -1,19 +1,69 @@
 class Vertex:
-    id = 0
-
     def __init__(self, id):
         self.id = id
 
     def __str__(self):
         return str(self.id)
 
+class APQ():
+    def __init__(self, root=None):
+        self.root = root
+
+    def add_node(self, node):
+        if self.root != None:
+            self.root.add_node(node)
+        else:
+            self.root = node
+    
+    def __str__(self):
+        return str(self.root)
+
+class Node():
+    def __init__(self, element):
+        self.element = element
+        self.right = None
+        self.left = None
+        self.parent = None
+
+    def add_node(self, node):
+        if self.left == None:
+            self.left = node
+            self.left.parent = self
+            node.verify()
+            return True
+        elif self.right == None:
+            self.right = node
+            self.right.parent = self
+            node.verify()
+        else:
+            if not self.left.add_node(node):
+                self.right.add_node(node)
+
+    def verify(self):
+        if self.parent != None:
+            if self.element < self.parent.element:
+                _temp = self.element
+                self.element = self.parent.element
+                self.parent.element = _temp
+                self.parent.verify()
+
+    def __str__(self):
+        string = "(" + str(self.left) + str(self.element) + str(self.right) + ")"
+        return string
+
+
 class Graph:
     adj_map = {}
+    locs = {}
+    closed = {}
+    preds = {}
+
+    open = APQ()
 
     def __str__(self):
         string = ""
         for sv in self.adj_map:
-            string += str(sv) + ": " + ", ".join([str(tv) + "|" + str(self.adj_map[sv][tv]) for tv in self.adj_map[sv]]) + "\n"
+            string += str(sv) + ": [" + "], [".join([str(tv) + ", " + str(self.adj_map[sv][tv]) for tv in self.adj_map[sv]]) + "]\n"
         return string
 
     def add_vertex(self, node):
@@ -28,6 +78,9 @@ class Graph:
         self.adj_map[sv][tv] = length
 
         self.adj_map[tv][sv] = length
+
+    # def dijkstra(s):
+
 
 
 
