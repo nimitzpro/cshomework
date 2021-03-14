@@ -16,7 +16,7 @@ async def handle_connection(client):
         while True:
             time = datetime.now()
             # decode() function returns string object
-            data = await loop.sock_recv(client, 16) # DOES NOT RECEIVE MORE THAN THE 16 BYTES AT ALL, ALSO DOES NOT RETURN DATA TO CLIENT
+            data = await loop.sock_recv(client, 16)
             data = data.decode()
             if data:
                 log = ""
@@ -48,7 +48,6 @@ async def main():
 
     if not os.path.exists("logs"):
         os.mkdir("logs")
-
 
     # Create a TCP server socket
     #(AF_INET is used for IPv4 protocols)
