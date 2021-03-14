@@ -32,12 +32,12 @@ async def handle_connection(client):
                 print('sending data back to the client')
                 # encode() function returns bytes object
                 data = data.encode()
-                await loop.sock_sendall(data)
+                await loop.sock_sendall(client, data)
             else:
                 print('no more data from', client)
                 break
-    except:
-        print("connection error")
+    except error:
+        print("connection error", error)
     finally:
         # Clean up the connection
         client.close()
