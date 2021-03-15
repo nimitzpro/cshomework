@@ -74,7 +74,7 @@ async def main():
         background_thread.daemon = True
         background_thread.start()
 
-        await send_message(client)
+        loop.create_task(send_message(client))
 
     sock.close()
 

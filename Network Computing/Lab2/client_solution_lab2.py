@@ -37,8 +37,9 @@ async def main():
 
     await send_message(sock)
 
+    sock.close()
+
+
 loop = asyncio.get_event_loop()
 loop.create_task(main())
 loop.run_forever()
-
-sock.close()
