@@ -1,0 +1,12 @@
+A. Client connects to the server using the IP and port number to connect to the socket, 
+and persists a connection, waiting for the user on the client side to type in a message.
+Once a message is entered, it is sent to the server.
+
+B. The message sent by the client is added to the log file
+
+C. No, because only the server writes to a log file
+
+D. It is not possible with my implementation, but I believe it is possible by expanding the server code
+
+E. We need the client to keep running so that multiple messages can be sent and so that messages from the server can be received, 
+which would not be possible if the client had terminated
