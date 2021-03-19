@@ -67,7 +67,9 @@ class Graph:
         return string
 
     def add_vertex(self, node):
-        self.adj_map[Vertex(node)] = {}
+        vertex = Vertex(node)
+        self.adj_map[vertex] = {}
+        return vertex
 
     def get_vertex_by_label(self, id):
         for node in self.adj_map.keys():
@@ -78,6 +80,8 @@ class Graph:
         self.adj_map[sv][tv] = length
 
         self.adj_map[tv][sv] = length
+
+        return 
 
     # def dijkstra(s):
 
