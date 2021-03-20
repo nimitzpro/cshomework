@@ -41,7 +41,7 @@ class Block:
         self.next = next
 
     def __str__(self):
-        string = "Process: " + (str(self.process) if self.prev != None else "None") + ", prev pages: " + (str(self.prev.pages) if self.prev != None else "None") + ", next pages: " + (str(self.next.pages) if type(self.prev) != None else "None") + ", pages: " + str(self.pages)
+        string = "Block: {a: " + str(self.accessed) + ", (" + (str(self.process) if self.process != None else "None") + "), prev pages: " + (str(self.prev.pages) if self.prev != None else "None") + ", next pages: " + (str(self.next.pages) if self.next != None else "None") + ", pages: " + str(self.pages) + "}"
         return string
 
 class Space:
@@ -94,7 +94,6 @@ class Space:
     def add(self, process):
         block = self.first
         while True:
-            # print(str(block))
             if block.process == None and process.pages <= block.pages:
                 block.process = process
                 self.exec_list.append(block)
@@ -104,11 +103,17 @@ class Space:
             block = block.next
 				
     def page_replace(self, process):
-        for block in self.exec_list:
-        	if block.pages >= process.pages and block.accessed == 0:
-        		block.process = process
-        		self.exec_list.append(self.exec_list.pop(0))
-        		return True
+        for i, block in enumerate(self.exec_list):
+            if block.pages >= process.pages:
+                if block.accessed == 0: # if the block has not been accessed recently, then replace the process and add to the end of the exec_list
+                    print("Replacing process in", str(block), " with", process)
+                    block.process = process
+                    self.exec_list.append(self.exec_list.pop(i))
+                    # print([str(block) for block in self.exec_list])
+                    return True
+                else: # else set the accessed bit to 0, and move to the end of the exec_list
+                    block.accessed = 0
+                    self.exec_list.append(self.exec_list.pop(i))
         return False
 
     def gen_requests(self, n=20):
@@ -119,7 +124,7 @@ class Space:
 
     def process_request(self):
         if len(self.requests) == 0:
-            return
+            return True
         process = self.requests[0]
         print("Handling process", str(process))
         if len(self.requests) > 1:
@@ -147,5 +152,8 @@ print(str(space))
 space.gen_requests(100)
 
 while True:
-    space.process_request()
+    no_reqs = space.process_request()
+    if no_reqs:
+        print("No more requests left...")
+        break
     space.set_used()
