@@ -55,7 +55,7 @@ class Space:
         print(str(self.first))
     
     def __str__(self):
-        string = "Blocks: \n"
+        string = "----------------------------------------\n"
         self.current = self.first
         string += str(self.current.pages) + "p\t"
         count = 0
@@ -70,9 +70,10 @@ class Space:
                     string += "\n" + str(self.current.next.pages) + "p\t"
                 elif count % 16 == 0:
                     string += "\n\t"
-
             self.current = self.current.next
         
+        # string += "\n----------------------------------------"
+        string += "\n"
         return string
 
     def gen_blocks(self, num2, num4, num8, num16, num32):
@@ -98,15 +99,15 @@ class Space:
                 block.process = process
                 self.exec_list.append(block)
                 return True
-            elif type(block.next) == None:
+            elif block.next == None:
                 return self.page_replace(process)
             block = block.next
 				
     def page_replace(self, process):
         for block in self.exec_list:
-        	if block.pages >= process and block.accessed == 0:
+        	if block.pages >= process.pages and block.accessed == 0:
         		block.process = process
-        		self.exec_list.append(self.exec_list.pop(block))
+        		self.exec_list.append(self.exec_list.pop(0))
         		return True
         return False
 
@@ -114,25 +115,37 @@ class Space:
         print("Generating", n, "processes requesting space...")
         for i in range(n):
             self.requests.append(Process(self))
-
-    def process_requests(self):
         print("Handling requests: ", [str(process) for process in self.requests])
-        while True:
-            process = self.requests[0]
-            print("Handling process", str(process))
-            if len(self.requests) > 1:
-                self.requests = self.requests[1::]
-            else:
-                self.requests = []
-                break
-            success = self.add(process)
-            time.sleep(1)
-            if not success:
-                self.requests.append(process)
-            print(str(self))
 
+    def process_request(self):
+        if len(self.requests) == 0:
+            return
+        process = self.requests[0]
+        print("Handling process", str(process))
+        if len(self.requests) > 1:
+            self.requests = self.requests[1::]
+        else:
+            self.requests = []
+        success = self.add(process)
+        time.sleep(0.0333333333333333)
+        if not success:
+            self.requests.append(process)
+        print(str(self))
+
+    def set_used(self):
+        amount = random.randint(0, len(self.exec_list) // 4)
+        while amount > 0:
+            block = self.exec_list[random.randint(0, len(self.exec_list)-1)]
+            if block.accessed == 1:
+                block.accessed = 0
+            else:
+                block.accessed = 1
+            amount -= 1
 
 space = Space()
 print(str(space))
-space.gen_requests()
-space.process_requests()
+space.gen_requests(100)
+
+while True:
+    space.process_request()
+    space.set_used()
