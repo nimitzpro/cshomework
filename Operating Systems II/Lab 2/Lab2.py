@@ -1,10 +1,14 @@
 import random
 import time
 
+# Dictionary of symbols representing empty and full blocks
 full = {2:"▪", 4:"■", 8:"▲", 16:"◆", 32:"●"}
 empty = {2:"▫", 4:"□", 8:"△", 16:"◇", 32:"○"}
 
 class Process:
+    '''
+    The Process Class - has a PID and takes up an amount of pages
+    '''
     pid = 0
     pages = 0
 
@@ -29,6 +33,11 @@ class Process:
 
 
 class Block:
+    '''
+    The Block Class - Has an amount of pages, contains or doesn't contain a process, 
+    has an accessed bit in line with Second Chance Page Replacement, 
+    and has pointers to the next and previous blocks in memory
+    '''
     pages = 0
     prev = None
     next = None
@@ -45,6 +54,11 @@ class Block:
         return string
 
 class Space:
+    '''
+    This represents the main memory of a machine and has a pointer to the first block, 
+    a queue of incoming requests for memory,
+    and a list holding the order in which processes were allocated memory for page replacement
+    '''
     exec_list = [] # a queue maintaining the execution order of processes
     first = None
     current = None
@@ -55,6 +69,9 @@ class Space:
         print(str(self.first))
     
     def __str__(self):
+        '''
+        Prints a visualisation of the memory in blocks
+        '''
         string = "----------------------------------------\n"
         self.current = self.first
         string += str(self.current.pages) + "p\t"
@@ -72,11 +89,14 @@ class Space:
                     string += "\n\t"
             self.current = self.current.next
         
-        # string += "\n----------------------------------------"
-        string += "\n"
+        string += "\n----------------------------------------"
+        # string += "\n"
         return string
 
     def gen_blocks(self, num2, num4, num8, num16, num32):
+        '''
+        Generates the memory blocks
+        '''
         self.first = Block(2)
         self.current = self.first
         self.gen_group(num2-1, 2)
@@ -86,12 +106,18 @@ class Space:
         self.gen_group(num32, 32)
 
     def gen_group(self, num, size):
+        '''
+        More specific method that handles generating each group of blocks (grouped by size)
+        '''
         for i in range(num):
             block = Block(size, self.current)
             self.current.next = block
             self.current = block
         
     def add(self, process):
+        '''
+        This method adds a process to a memory block using First Fit principles, otherwise calls page_replace
+        '''
         block = self.first
         while True:
             if block.process == None and process.pages <= block.pages:
@@ -103,6 +129,9 @@ class Space:
             block = block.next
 				
     def page_replace(self, process):
+        '''
+        Handles page replacement using the Second Chance PRA
+        '''
         for i, block in enumerate(self.exec_list):
             if block.pages >= process.pages:
                 if block.accessed == 0: # if the block has not been accessed recently, then replace the process and add to the end of the exec_list
@@ -117,12 +146,18 @@ class Space:
         return False
 
     def gen_requests(self, n=20):
+        '''
+        Generates memory requests
+        '''
         print("Generating", n, "processes requesting space...")
         for i in range(n):
             self.requests.append(Process(self))
         print("Handling requests: ", [str(process) for process in self.requests])
 
     def process_request(self):
+        '''
+        Handles process requests to memory, if it was not able to be added, then it is moved to the back of the requests queue
+        '''
         if len(self.requests) == 0:
             return True
         process = self.requests[0]
@@ -132,12 +167,36 @@ class Space:
         else:
             self.requests = []
         success = self.add(process)
-        time.sleep(0.0333333333333333)
+        time.sleep(0.5)
         if not success:
             self.requests.append(process)
         print(str(self))
+        self.frag()
+
+    def frag(self):
+        '''
+        Prints out the amount of blocks and pages affected by internal and external fragmentation
+        '''
+        self.current = self.first
+        external_frag = 0
+        external_blocks = 0
+        internal_frag = 0
+        internal_blocks = 0
+        while self.current != None:
+            if self.current.process == None:
+                external_frag += self.current.pages
+                external_blocks += 1
+            else:
+                if self.current.process.pages < self.current.pages:
+                    internal_frag += self.current.pages - self.current.process.pages
+                    internal_blocks += 1
+            self.current = self.current.next
+        print("Internal fragmentation:", internal_frag, "pages,", internal_blocks, "blocks affected\nExternal fragmentation:", external_frag, "pages,", external_blocks, "empty block(s)\n")
 
     def set_used(self):
+        '''
+        A method which randomly selects blocks to set their accessed bit to 0 or 1, simulating recent access of those memory blocks
+        '''
         amount = random.randint(0, len(self.exec_list) // 4)
         while amount > 0:
             block = self.exec_list[random.randint(0, len(self.exec_list)-1)]
@@ -150,7 +209,7 @@ class Space:
 space = Space()
 print(str(space))
 space.gen_requests(100)
-
+time.sleep(5)
 while True:
     no_reqs = space.process_request()
     if no_reqs:
