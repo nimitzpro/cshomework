@@ -12,32 +12,41 @@ class APQ():
         return self.items[0]
 
     def remove_min(self):
-        min = self.items[0]
+        original_smallest = self.items[0]
         
         index = 0
         self.items[index] = self.items.pop(len(self.items)-1)
-        return
-        # Swap down
+        # return
+        # # Swap down
+
+        # smallest = 1
+        # if len(self.items) == 1:
+        #     return original_smallest
+        # elif len(self.items) == 2:
+        #     smallest = self.items[1]
+        # if len(self.items > 2):
+        #     if self.items[1] > self.items[2]:
+        #         smallest = 2
+
+        # self.check(min(self.items[1],self.items[2]))
+
         i = 0
         while i < len(self.items):
             smallest = (i+1)*2
-
-            if (i+1)*2 > len(self.items)-1:
-                smallest = ((i+1)*2) -1
-            if ((i+1)*2) -1 > len(self.items)-1:
+            if smallest > len(self.items)-1:
+                smallest -= 1
+            if smallest > len(self.items)-1:
                 break
 
-            if self.items[((i+1)*2) -1] < self.items[(i+1)*2]:
-                smallest = ((i+1)*2) -1
-            
-            if self.items[smallest] < self.items[index]:
-               self.swap(smallest, index)
+            if self.items[smallest -1] < self.items[smallest]:
+                smallest -= 1
+            if self.items[smallest] < self.items[i]:
+               self.swap(smallest, i)
                i = smallest
-
             else:
                 break
 
-        return min
+        return original_smallest
     
     def check(self, index):
         parent = math.floor(((index + 1) / 2) - 1)
@@ -70,6 +79,9 @@ queue.add_node(6)
 queue.add_node(4)
 queue.add_node(3)
 queue.add_node(2)
+queue.add_node(9)
+queue.add_node(10)
+queue.add_node(11)
 queue.remove_min()
 
 print(queue)

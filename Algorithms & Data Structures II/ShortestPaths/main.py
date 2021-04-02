@@ -8,6 +8,7 @@ class Vertex:
 class APQ():
     def __init__(self, root=None):
         self.root = root
+        self.current = root
 
     def add_node(self, node):
         if self.root != None:
@@ -17,6 +18,13 @@ class APQ():
     
     def __str__(self):
         return str(self.root)
+
+    def remove_min(self):
+        rt = self.root.element
+
+
+
+        return rt
 
 class Node():
     def __init__(self, element):
@@ -64,6 +72,11 @@ class Graph:
         string = ""
         for sv in self.adj_map:
             string += str(sv) + ": [" + "], [".join([str(tv) + ", " + str(self.adj_map[sv][tv]) for tv in self.adj_map[sv]]) + "]\n"
+        
+        string += str(self.locs)
+        string += "\n"+ str(self.closed)
+        string += "\n" + str(self.preds)
+        string += "\n" + str(self.open)
         return string
 
     def add_vertex(self, node):
@@ -81,11 +94,13 @@ class Graph:
 
         self.adj_map[tv][sv] = length
 
-        return 
+        return str(self.adj_map[sv])
 
-    # def dijkstra(s):
+    def dijkstra(self):
+        for point in self.adj_map.keys():
+            self.open.add_node(Node(point))
 
-
+        print(self.open)
 
 
 def graphreader(filename):
