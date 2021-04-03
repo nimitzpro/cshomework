@@ -187,7 +187,12 @@ def graphreader(filename):
     print('Read', num, 'edges and added into the graph')
     return graph
 
-if __name__ == "__main__":
-    g = graphreader("simplegraph1.txt")
+def handle(filename, start=1):
+    g = graphreader(filename)
     print(g)
-    print(g.dijkstra(1))
+    print(g.dijkstra(start))
+
+
+if __name__ == "__main__":
+    # handle("simplegraph1.txt")
+    handle("simplegraph2.txt")
