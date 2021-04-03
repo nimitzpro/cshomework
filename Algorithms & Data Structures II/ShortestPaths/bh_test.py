@@ -16,19 +16,8 @@ class APQ():
         
         index = 0
         self.items[index] = self.items.pop(len(self.items)-1)
-        # return
-        # # Swap down
 
-        # smallest = 1
-        # if len(self.items) == 1:
-        #     return original_smallest
-        # elif len(self.items) == 2:
-        #     smallest = self.items[1]
-        # if len(self.items > 2):
-        #     if self.items[1] > self.items[2]:
-        #         smallest = 2
-
-        # self.check(min(self.items[1],self.items[2]))
+        # Swap down
 
         i = 0
         while i < len(self.items):
@@ -82,6 +71,7 @@ queue.add_node(2)
 queue.add_node(9)
 queue.add_node(10)
 queue.add_node(11)
+queue.remove_min()
 queue.remove_min()
 
 print(queue)
