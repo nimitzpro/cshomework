@@ -87,7 +87,7 @@ class Graph:
     closed = {}
     preds = {}
 
-    open = APQ()
+    self.open = APQ()
 
     def __str__(self):
         string = "Adjacency map: \n"
@@ -194,5 +194,5 @@ def handle(filename, start=1):
 
 
 if __name__ == "__main__":
-    # handle("simplegraph1.txt")
+    handle("simplegraph1.txt")
     handle("simplegraph2.txt")
