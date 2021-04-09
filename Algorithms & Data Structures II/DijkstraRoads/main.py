@@ -7,7 +7,9 @@ class Vertex:
         self.lon = lon
 
     def __str__(self):
-        return "{{id:"+str(self.id)+", lat:"+str(self.lat)+", lon:"+str(self.lon)}}"
+        return str(self.id)
+
+        # return "{{id:"+str(self.id)+", lat:"+str(self.lat)+", lon:"+str(self.lon)+"}}"
 
 class APQ():
     def __init__(self, root=None):
@@ -83,8 +85,9 @@ class APQ():
                 return i
 
 
-class Graph:
+class RouteMap:
     adj_map = {}
+    quick_map = {}
     locs = {}
     closed = {}
     preds = {}
@@ -93,6 +96,10 @@ class Graph:
         self.open = APQ()
 
     def __str__(self):
+
+        if len(self.adj_map.keys()) > 100 or len(self.adj_map.values()) > 200:
+            return "More than 100 vertices or edges"
+
         string = "Adjacency map: \n"
         for sv in self.adj_map:
             string += str(sv) + ": [" + "], [".join([str(tv) + ", " + str(self.adj_map[sv][tv]) for tv in self.adj_map[sv]]) + "]\n"
@@ -103,15 +110,14 @@ class Graph:
         string += "\nClosed: "+ str(self.closed)
         return string
 
-    def add_vertex(self, id):
-        vertex = Vertex(id)
+    def add_vertex(self, id, lat, lon):
+        vertex = Vertex(id, lat, lon)
         self.adj_map[vertex] = {}
+        self.quick_map[id] = vertex
         return vertex
 
     def get_vertex_by_label(self, id):
-        for node in self.adj_map.keys():
-            if node.id == id:
-                return node
+        return self.quick_map[id]
 
     def add_edge(self, sv, tv, length):
         self.adj_map[sv][tv] = length
@@ -145,8 +151,7 @@ class Graph:
                         self.open.items.pop(self.open.get_index(w))
                         self.open.add_node({new_cost:w})
 
-        return "Closed: "+", ".join([str(self.closed[i][1])+"-->"+str(i) +"("+ str(self.closed[i][0])+")" for i in self.closed])+\
-            "\nClosed (alt. string): \n" + self.strhelper()
+        return self.closed
     
     def strhelper(self, a=-1):
         if a == None:
@@ -164,19 +169,39 @@ class Graph:
 
         return string
 
+    def sp(self, v, w):
+        w = self.get_vertex_by_label(w)
+        d = self.dijkstra(v)
+        new = []
+        while w != None:
+            pair = (w, d[w][0])
+            new.append(pair)
+            w = d[w][1]
+        new = new[::-1]
+        return new
+
+    def print_sp(self, sp):
+        print("code","latitude","longitude","id","time", sep="\t")
+        for pair in sp:
+            p = pair[0]
+            print("W", p.lat, p.lon, p.id, pair[1], sep="\t")
+
+
 def graphreader(filename):
     """ Read and return the route map in filename. """
-    graph = Graph()
+    graph = RouteMap()
     file = open(filename, 'r')
     entry = file.readline() # either 'Node' or 'Edge'
     num = 0
     while entry == 'Node\n':
         num += 1
         nodeid = int(file.readline().split()[1])
-        vertex = graph.add_vertex(nodeid)
+        gps = file.readline().split()
+        lat, lon = float(gps[1]), float(gps[2])
+        vertex = graph.add_vertex(nodeid, lat, lon)
         entry = file.readline() # either 'Node' or 'Edge'
-        print('Read', num, 'vertices and added into the graph')
-        num = 0
+    print('Read', num, 'vertices and added into the graph')
+    num = 0
     while entry == 'Edge\n':
         num += 1
         source = int(file.readline().split()[1])
@@ -184,7 +209,8 @@ def graphreader(filename):
         target = int(file.readline().split()[1])
         tv = graph.get_vertex_by_label(target)
         length = float(file.readline().split()[1])
-        edge = graph.add_edge(sv, tv, length)
+        time = float(file.readline().split()[1]) # Time
+        edge = graph.add_edge(sv, tv, time)
         file.readline() # read the one-way data
         entry = file.readline() # either 'Node' or 'Edge'
     print('Read', num, 'edges and added into the graph')
@@ -192,9 +218,15 @@ def graphreader(filename):
 
 def handle(filename, start=1):
     g = graphreader(filename)
-    print(g)
-    print(g.dijkstra(start))
 
+    # print(g)
+    # closed = g.dijkstra(start)
+    # print("Closed: "+", ".join([str(closed[i][1])+"-->"+str(i) +"("+ str(closed[i][0])+")" for i in closed])+\
+    #         "\nClosed (alt. string): \n" + g.strhelper())
+    # g.sp(1, 4)
+    
+    sp = g.sp(1669466540, 1147697924)
+    g.print_sp(sp)
 
 if __name__ == "__main__":
-    handle("simpleroute.txt")
+    handle("corkCityData.txt")

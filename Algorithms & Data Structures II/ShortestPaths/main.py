@@ -143,9 +143,10 @@ class Graph:
                         self.preds[w] = v
                         self.open.items.pop(self.open.get_index(w))
                         self.open.add_node({new_cost:w})
-
-        return "Closed: "+", ".join([str(self.closed[i][1])+"-->"+str(i) +"("+ str(self.closed[i][0])+")" for i in self.closed])+\
-            "\nClosed (alt. string): \n" + self.strhelper()
+                        
+        return self.closed
+        # return "Closed: "+", ".join([str(self.closed[i][1])+"-->"+str(i) +"("+ str(self.closed[i][0])+")" for i in self.closed])+\
+        #     "\nClosed (alt. string): \n" + self.strhelper()
     
     def strhelper(self, a=-1):
         if a == None:
@@ -174,8 +175,8 @@ def graphreader(filename):
         nodeid = int(file.readline().split()[1])
         vertex = graph.add_vertex(nodeid)
         entry = file.readline() # either 'Node' or 'Edge'
-        print('Read', num, 'vertices and added into the graph')
-        num = 0
+    print('Read', num, 'vertices and added into the graph')
+    num = 0
     while entry == 'Edge\n':
         num += 1
         source = int(file.readline().split()[1])
@@ -192,7 +193,9 @@ def graphreader(filename):
 def handle(filename, start=1):
     g = graphreader(filename)
     print(g)
-    print(g.dijkstra(start))
+    closed = g.dijkstra(start)
+    print("Closed: "+", ".join([str(closed[i][1])+"-->"+str(i) +"("+ str(closed[i][0])+")" for i in closed])+\
+            "\nClosed (alt. string): \n" + g.strhelper())
 
 
 if __name__ == "__main__":
