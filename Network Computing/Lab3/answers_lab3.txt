@@ -1,0 +1,4 @@
+In order to answer this lab I had to take a look at how get requests were structured. 
+I took a look at my own browser's (Firefox) requests to different sites and saw how there is a lot of metadata sent concerning browser version, client OS, and type of file to be expected.
+I then distilled this down to the basic GET request for this lab and used that in my client.py file.
+I created a TCP connection as before but have it structured differently to accomodate web requests.
