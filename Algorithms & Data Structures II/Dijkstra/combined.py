@@ -229,13 +229,13 @@ class RouteMap(Graph):
         return new
 
     def print_sp(self, sp):
-        print("code","latitude","longitude","id","time", sep="\t")
+        print("code","latitude","longitude","id","time", sep=",")
         for pair in sp:
             p = pair[0]
             str_pid = str(p.id)
-            if len(str_pid) < 7:
-                str_pid += "\t"
-            print("W", p.lat, p.lon, str_pid, pair[1], sep="\t")
+            # if len(str_pid) < 7:
+            #     str_pid += "\t"
+            print("W", p.lat, p.lon, str_pid, pair[1], sep=",")
 
 def graphreader(filename):
     """ Read and return the route map in filename. """
