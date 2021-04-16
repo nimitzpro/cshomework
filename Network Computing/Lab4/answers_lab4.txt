@@ -1,0 +1,8 @@
+The general difference between TCP/IP and UDP is that 
+TCP requires a connection to stay open in order for data to be sent and received, whereas 
+UDP does not use a connection. TCP uses handshaking to verify that a connection has been established and that data has been received.
+This makes TCP a more reliable method of transferring data, if slower than UDP with less overhead.
+However UDP is more ideal in a scenario where latency matters more than having perfect packets.
+
+In Python the difference is that the server socket is bound to one client for the duration of a connection using TCP, 
+but in UDP it can receive from and send to multiple client sockets. 
