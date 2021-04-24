@@ -1,7 +1,7 @@
 public class Paperback implements Book{
     private Title title;
     private Author author;
-    private double price = 10;
+    private static final double price = 10;
     private int pageCount;
 
     public Paperback(Author author, Title title, int pageCount){
@@ -10,9 +10,20 @@ public class Paperback implements Book{
         this.pageCount = pageCount;
     }
 
-    @Override
     public String toString(){
-        return "PaperBack[ author = " + this.author + ", title = " + this.title + ", price = " + this.price + ", page count = " + this.pageCount + " ]";
+        return "PaperBack[ author = " + this.author + ", title = " + this.title.toString() + ", price = " + price + ", page count = " + this.pageCount + " ]";
+    }
+
+    public Title getTitle() {
+        return this.title;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Author getAuthor() {
+        return this.author;
     }
 
 }

@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Reader implements Person{
-    private String firstname;
-    private String surname;
+    protected String firstname;
+    protected String surname;
     private ArrayList<Book> collection;
     private double earnings = 0;
 
@@ -13,12 +13,12 @@ public class Reader implements Person{
     }
 
     public void printBooksOwned(){
-        String str = this.firstname + " " + this.surname + "owns:";
+        String str = this.firstname + " " + this.surname + " owns:";
 
-        if(this.collection.size() == 0) System.out.println(" no collection!");
+        if(this.collection.size() == 0) System.out.println(" no books!");
         else{
             for(Book x: this.collection){
-                str += "\n\t" + x.getTitle();
+                str += "\n\t" + x.getTitle().toString();
             }
             System.out.println(str);
         }
@@ -28,7 +28,10 @@ public class Reader implements Person{
         double price = book.getPrice();
         if(this.charge(price)){
             collection.add(book);
-            book.getAuthor().receive(0.1*price)
+            book.getAuthor().receive(0.1*price);
+        }
+        else{
+            System.out.println("You don't have enough money to buy\n\t" + book.toString());
         }
     }
 
@@ -45,6 +48,10 @@ public class Reader implements Person{
             this.earnings -= amount;
         }
         return payment;
+    }
+
+    public double getEarnings() {
+        return this.earnings;
     }
 
 }

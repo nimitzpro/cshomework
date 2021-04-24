@@ -13,7 +13,11 @@ public class Title {
 
     @Override
     public String toString(){
-        return this.title + " - " + this.subtitle;
+        String str = this.title;
+
+        if(this.subtitle != null) str += " / " + this.subtitle;
+
+        return str;
     }
 
 }

@@ -1,6 +1,6 @@
 public interface Book {
 
-    public String getTitle();
+    public Title getTitle();
 
     public double getPrice();
 
