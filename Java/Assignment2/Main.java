@@ -1,6 +1,11 @@
+/**
+* Main class, this class tests all of the different classes etc.
+*
+* @author Alexander Stradnic (ID 119377263)
+*/
+
 public class Main {
     public static void main(String[] args){
-        System.out.println("Hello world");
         final Title t1 = new Title("The Hobbit", "An Unexpected Journey");
         final Title t2 = new Title("Catcher in the Rye");
         final Author a1 = Author.JRR_Tolkien;

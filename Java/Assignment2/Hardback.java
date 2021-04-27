@@ -1,16 +1,16 @@
 /**
-* Paperback class, this class is an implementation of Book and has Paperback-specific properties, any instance of Paperback has a price of €12
+* Hardback class, this class is an implementation of Book and has Hardback-specific properties, any instance of Hardback has a price of €12
 *
 * @author Alexander Stradnic (ID 119377263)
 */
 
-public class Paperback implements Book{
+public class Hardback implements Book{
     private Title title;
     private Author author;
-    private static final double price = 10;
+    private static final double price = 12;
     private int pageCount;
 
-    public Paperback(Author author, Title title, int pageCount){
+    public Hardback(Author author, Title title, int pageCount){
         this.author = author;
         this.title = title;
         this.pageCount = pageCount;
@@ -19,7 +19,7 @@ public class Paperback implements Book{
     }
 
     public String toString(){
-        return "Paperback[ author = " + this.author + ", title = " + this.title.toString() + ", price = " + price + ", page count = " + this.pageCount + " ]";
+        return "Hardback[ author = " + this.author + ", title = " + this.title.toString() + ", price = " + price + ", page count = " + this.pageCount + " ]";
     }
 
     public Title getTitle() {

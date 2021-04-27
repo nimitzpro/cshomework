@@ -1,3 +1,9 @@
+/**
+* AudioBook class, this class is an implementation of Book and has Audiobook-specific features such as duration
+*
+* @author Alexander Stradnic (ID 119377263)
+*/
+
 public class AudioBook implements Book{
     private Author author;
     private Title title;
@@ -8,28 +14,23 @@ public class AudioBook implements Book{
         this.author = author;
         this.title = title;
         this.duration = duration;
+
+        this.author.addBook(this);
     }
 
 
-    @Override
     public String toString(){
         return "AudioBook[ author = " + this.author + ", title = " + this.title.toString() + ", price = " + price + ", duration = " + this.duration + " ]";
     }
 
-
-    @Override
     public Title getTitle() {
         return this.title;
     }
 
-
-    @Override
     public double getPrice() {
         return price;
     }
 
-
-    @Override
     public Author getAuthor() {
         return this.author;
     }

@@ -1,7 +1,13 @@
 import java.util.ArrayList;
 
+/**
+* Reader class, this class builds on the Person interface, with a name, collection of books, earnings, and relevant methods
+*
+* @author Alexander Stradnic (ID 119377263)
+*/
+
 public class Reader implements Person{
-    protected String firstname;
+    protected String firstname; // Protected variables used here for easier access in Author.java
     protected String surname;
     private ArrayList<Book> collection;
     private double earnings = 0;
@@ -15,13 +21,17 @@ public class Reader implements Person{
     public void printBooksOwned(){
         String str = this.firstname + " " + this.surname + " owns:";
 
-        if(this.collection.size() == 0) System.out.println(" no books!");
+        this.printBooks(str, this.collection);
+    }
+
+    public void printBooks(String str, ArrayList<Book> books){
+        if(books.size() == 0) str += " no books!";
         else{
-            for(Book x: this.collection){
+            for(Book x: books){
                 str += "\n\t" + x.getTitle().toString();
             }
-            System.out.println(str);
         }
+        System.out.println(str);
     }
 
     public void buy(Book book){
