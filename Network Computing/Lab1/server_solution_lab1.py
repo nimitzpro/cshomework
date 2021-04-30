@@ -1,9 +1,13 @@
 # from the socket module import all
 from socket import *
 import os
+from datetime import datetime
 
 if not os.path.exists("logs"):
     os.mkdir("logs")
+    
+HostName = gethostname()
+IP = gethostbyname(HostName)
 
 # Create a TCP server socket
 #(AF_INET is used for IPv4 protocols)
@@ -13,7 +17,7 @@ sock = socket(AF_INET, SOCK_STREAM)
 # sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # set values for host 'localhost' - meaning this machine and port number 10000
-server_address = ('localhost', 10000)
+server_address = (IP, 10000)
 # output to terminal some info on the address details
 print('*** Server is starting up on %s port %s ***' % server_address)
 # Bind the socket to the host and port

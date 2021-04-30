@@ -1,0 +1,8 @@
+[2021-04-30 16:07:17.783833]: sent "C:/Users/astro/AppData/Local/Programs/Python/Python39/python.exe "c:/Users/astro/Desktop/cshomework/Network Computing/Lab2/client_solution_lab2.py""
+[2021-04-30 16:07:17.789831]: sent "C:/Users/astro/AppData/Local/Programs/Python/Python39/python.exe "c:/Users/astro/Desktop/cshomework/Network Computing/Lab2/client_solution_lab2.py""
+[2021-04-30 16:07:17.793831]: sent "C:/Users/astro/AppData/Local/Programs/Python/Python39/python.exe "c:/Users/astro/Desktop/cshomework/Network Computing/Lab2/client_solution_lab2.py""
+[2021-04-30 16:07:17.781834]: received "ff]"
+[2021-04-30 16:07:25.839761]: received "ff"
+[2021-04-30 16:07:29.060152]: sent "cool"
+[2021-04-30 16:07:26.709203]: received "hello"
+[2021-04-30 16:07:35.384140]: sent "yes hello"
