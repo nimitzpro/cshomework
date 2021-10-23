@@ -1,4 +1,4 @@
-import random
+import random import randint
 from datetime import datetime
 
 def matrices(N):
@@ -13,8 +13,8 @@ def matrices(N):
 
 def matrix(n):
     
-    A = [[random.randint(0, 99) for a2 in range(n)] for a1 in range(n)]
-    B = [[random.randint(0, 99) for b2 in range(n)] for b1 in range(n)]
+    A = [[randint(0, 99) for a2 in range(n)] for a1 in range(n)]
+    B = [[randint(0, 99) for b2 in range(n)] for b1 in range(n)]
 
     # print(A, B, sep="\n")
 
