@@ -1,4 +1,4 @@
-import random import randint
+from random import randint
 from datetime import datetime
 
 def matrices(N):
