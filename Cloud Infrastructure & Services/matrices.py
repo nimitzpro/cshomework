@@ -8,7 +8,17 @@ def matrices(N):
         matrix(n)
 
     finish = datetime.now()
-    print("Execution time:", finish-start)
+    s = "matrices(" + str(N) + "): " + str(finish-start)
+    print(s)
+
+    f = None
+    r = ""
+    try:
+        f = open("log.txt", "a")
+    except FileExistsError:
+        f = open("log.txt", "w")
+    f.write("\n"+s)
+    f.close()
     
 
 def matrix(n):

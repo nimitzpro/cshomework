@@ -1,0 +1,4 @@
+Execution time: 0:00:00.243933Execution time: 0:00:03.279611Execution time: 0:00:15.279457
+Matrices(50): 0:00:00.236912
+Matrices(100): 0:00:03.510276
+Matrices(150): 0:00:15.877793

@@ -102,3 +102,22 @@ db.courses.aggregate([
         }
     }
 ]).pretty()
+
+db.db.insert([
+    { "_id": 1, "name" : "Peter", "hobbies" :[ 'steep', "movies" ], "customers" : ["Tesco", "Aldi", "Centra" ]},
+    { "_id": 2, "name" : "Alex", "hobbies" :[ "dance", "movies" ], "customers" : [ "Tesco", "Aldi" ]},
+    { "_id": 3, "name" : "Barry", "hobbies" :[ 'travel', "movies"], "customers" : []},
+    { "_id": 4, "name" : "Sean", "hobbies" :[ "dance", "hiking", "movies" ], "customers" :[ "Centra" ]}
+])
+
+db.db.aggregate([ {$unwind: "$hobbies"}, {$unwind: "$customers"}, {$group: {_id: "$hobbies", total: {$sum: 1}} } ])
+
+{ "_id" : "dance", "total" : 3 }
+{ "_id" : "hiking", "total" : 1 }
+{ "_id" : "steep", "total" : 3 }
+{ "_id" : "movies", "total" : 6 }
+
+db.db.insert([
+    {"_id":1, "name" : "Alex", "m": "April", "distKm" : 5, "tMin": 33 },
+    {"_id":2, "name": "Alex", "m": "March", "distKm": 2, "tMin": 12}
+])
