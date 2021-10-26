@@ -4,4 +4,4 @@ WORKDIR /
 
 COPY "matrices2.py" .
 
-CMD ["python3", "matrices.py"]
+CMD ["python3", "matrices2.py"]
