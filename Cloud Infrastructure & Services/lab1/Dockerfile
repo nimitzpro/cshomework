@@ -1,7 +1,7 @@
-FROM python:stretch
+FROM python:latest
 
 WORKDIR /
 
-COPY . .
+COPY "matrices2.py" .
 
 CMD ["python3", "matrices.py"]
