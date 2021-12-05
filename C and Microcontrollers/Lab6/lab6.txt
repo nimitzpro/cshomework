@@ -1,0 +1,54 @@
+/* mbed Microcontroller Library
+ * Copyright (c) 2019 ARM Limited
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include "mbed.h"
+#include "platform/mbed_thread.h"
+
+#include "TextLCD.h"
+
+
+// Blinking rate in milliseconds
+#define BLINKING_RATE_MS 500
+
+//TextLCD lcd(D2,D3,D4,D5,D6,D7);
+
+TextLCD lcd(D12, D11, D5, D4, D3, D2);
+
+#define ConcertA 440
+#define DefaultTempo 88
+#define Minute 60000
+#define HalfMinute 30000
+
+void buzz(){
+    
+}
+
+int main()
+{
+    int tempo = DefaultTempo;
+    lcd.printf("Tempo:%d", tempo);
+    
+    
+    //lcd.printf("123456789012345\n");
+//    lcd.printf("1234567890123456");
+    
+    // Initialise the digital pin LED1 as an output
+    DigitalOut led(LED1);
+    DigitalOut buzzer(D8);
+
+//    buzzer = !buzzer;
+    
+    while (true) {
+        thread_sleep_for((HalfMinute/tempo) - 10);
+        led = !led;
+        for(int i = 100; i > 0; i--){
+            buzzer = !buzzer;
+            thread_sleep_for(0.1);
+        }
+        //buzzer = !buzzer ? !buzzer : buzzer;
+        thread_sleep_for((HalfMinute/tempo) - 10);
+        led = !led;
+    }
+}
