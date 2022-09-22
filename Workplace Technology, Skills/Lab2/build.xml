@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<project name="Lab-2" default="run-tests">
+
+    <property name="java-dir" value="src" description="java directory"/>
+    <property name="tests-dir" value="tests" description="tests directory"/>
+    <property name="class-dir" value="classes" description="class directory"/>
+
+    <target name="compile-main">
+        <javac srcdir="${java-dir}"
+               destdir="${class-dir}"/>
+    </target>
+
+    <path id="junit.platform.libs.classpath">
+        <fileset dir="./lib/"/>
+    </path>
+
+    <target name="compile-tests" depends="compile-main">
+        <javac srcdir="${tests-dir}"
+               destdir="${class-dir}">
+        <classpath refid="junit.platform.libs.classpath"/>
+        </javac>
+    </target>
+
+    <target name="compile-javadocs" depends="compile-tests">
+        <javadoc sourcefiles="${tests-dir}/Tester.java" destdir="./docs"
+                 classpath="./lib/junit-4.13.1.jar:./lib/hamcrest-core-1.3.jar"/>
+    </target>
+
+    <target name="run-tests" depends="compile-tests">
+        <junitlauncher>
+            <!-- include the JUnit platform related libraries
+            required to run the tests -->
+            <classpath refid="junit.platform.libs.classpath"/>
+
+
+            <classpath>
+                <!-- the test classes themselves -->
+                <pathelement location="${class-dir}"/>
+            </classpath>
+            <testclasses outputdir="${class-dir}">
+                <fileset dir="${class-dir}"/>
+                <listener type="legacy-brief" sendSysOut="true"/>
+                <listener type="legacy-xml" sendSysErr="true" sendSysOut="true"/>
+
+            </testclasses>
+
+        </junitlauncher>
+    </target>
+
+    <target name="deploy" depends="compile-tests">
+        <tar includes="${class-dir}" destfile="~/DEPLOYMENT/lab2"/>
+    </target>
+
+    <target name="untar" depends="deploy">
+        <untar src="~/DEPLOYMENT/lab2"></untar>
+    </target>
+
+</project>
