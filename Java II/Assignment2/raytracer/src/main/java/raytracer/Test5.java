@@ -83,7 +83,18 @@ public class Test5 {
         // TESTING ALEX
         Pigment aGradientPigment1 = rayTracer.createGradientPigment(point1, point1, point3, Color.black, Color.white);
 
-        rayTracer.addTriangle(aGradientPigment1, finish3, point1, point2, point3);
+
+        // adding a triangle to raytracer
+        int[] p1 = new int[]{0, 2, 0};
+        int[] p2 = new int[]{2, 4, 4};
+        int[] p3 = new int[]{0, 0, 4};
+
+        // Pigment pigment6 = rayTracer.createPigment(Color.black, "solid");
+        // rayTracer.addTriangle(pigment6, finish3, point1, point2, point3);
+
+        // TESTING ALEX
+        Pigment aGradientPigment2 = rayTracer.createGradientPigment(p1, p2, p3, Color.yellow, Color.white);  
+        rayTracer.addTriangle(aGradientPigment2, finish3, point1, point2, point3);
 
         // drawing image with 2 inputs: output file name, output file format
         rayTracer.draw("test05", "png");
