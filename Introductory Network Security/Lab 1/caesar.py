@@ -43,4 +43,5 @@ for char in text:
     else:
         decrypted_text += char
 
+print("Caesar Shift: " + str(shift) + "\n")
 print(decrypted_text)
