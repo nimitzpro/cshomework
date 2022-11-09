@@ -1,0 +1,23 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.General" parent="Theme.MaterialComponents.Light">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/gray</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/purple_700</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/teal_700</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <item name="android:button">@color/darkgray</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+<!--    <style name="Welcome_Screen" parent="Theme.MaterialComponents.NoActionBar">-->
+<!--        <item name="android:statusBarColor">?attr/colorPrimary</item>-->
+<!--        <item name="android:navigationBarColor">@color/black</item>-->
+<!--    </style>-->
+</resources>

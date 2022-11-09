@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<dataroot xmlns:xsi="http://schemas.android.com/apk/res-auto" xsi:noNamespaceSchemaLocation="teams.xsd">
+    <team>
+        <name>FaZe Clan</name>
+        <region>European RMR A</region>
+        <desc>FaZe Clan is an American professional esports and entertainment organization founded in May 2010. They are the first international team to win a Global Offensive Major, doing so at PGL Major Antwerp 2022.</desc>
+        <winnings>$5,577,197</winnings>
+        <created>30th May 2010</created>
+        <image>faze</image>
+        <url>https://fazeclan.com/teams/csgo</url>
+    </team>
+    <team>
+        <name>Natus Vincere</name>
+        <region>European RMR B</region>
+        <desc>Natus Vincere (Latin for "born to win", often abbreviated to NAVI and previously Na`Vi) is an Ukrainian professional esports organization. They were the first team to win all Counter-Strike Majors in one calendar year, with Intel Extreme Masters IV, ESWC 2010, and WCG 2010, and the first team to win a Global Offensive Major without dropping a map, doing so at PGL Major Stockholm 2021. </desc>
+        <winnings>$9,194,759</winnings>
+        <created>17th December 2009</created>
+        <image>natus</image>
+        <url>https://navi.gg/en/teams</url>
+    </team>
+    <team>
+        <name>Ninjas in Pyjamas</name>
+        <region>European RMR A</region>
+        <desc>Ninjas in Pyjamas (often abbreviated to NIP and NiP) is a Swedish esports organization founded in 2000. The team competed in Counter-Strike until their dissolution in 2007. In 2012, the team returned with a now heavily renowned Counter-Strike: Global Offensive squad. The squad was revamped following the departure of longtime duo Christopher "GeT_RiGhT" Alesund and Patrik "f0rest" Lindberg after the end of the StarLadder Berlin Major and the re-signing of Björn "THREAT" Pers as head coach, who redirected the organization's resources into acquiring prominent young talent such as AWPer Tim "nawwk" Jonasson and in-game leader Hampus "hampus" Poser. On April 23, 2021, Nicolai "dev1ce" Reedtz was acquired from Astralis in a historic transfer as a replacement for the former. </desc>
+        <winnings>$3,724,053</winnings>
+        <created>June 2000</created>
+        <image>ninjas</image>
+        <url>https://nip.gl/pages/team-csgo</url>
+    </team>
+    <team>
+        <name>ENCE</name>
+        <region>European RMR B</region>
+        <desc>ENCE (formerly ENCE eSports) is a Finnish esports organization founded in 2013. They field primarily Finnish active rosters in Counter-Strike: Global Offensive, Hearthstone, PLAYERUNKNOWN'S BATTLEGROUNDS and StarCraft II.</desc>
+        <winnings>$1,590,760</winnings>
+        <created>13th April 2013</created>
+        <image>ence</image>
+        <url>https://ence.gg/team/cs-go</url>
+    </team>
+    <team>
+        <name>Sprout</name>
+        <region>European RMR A</region>
+        <desc>Sprout is a German esports organization owned by Rush B Esport, a Berlin-based esports company.</desc>
+        <winnings>$516,971</winnings>
+        <created>11th December 2017</created>
+        <image>sprout</image>
+        <url>https://sprout.gg/teams/</url>
+    </team>
+    <team>
+        <name>Heroic</name>
+        <region>European RMR B</region>
+        <desc>Heroic is a Norwegian esports organization founded by the former members of Team X in 2016 in Denmark. The moniker had previously been used in 2013 for a Danish team featuring Nicolai "device" Reedtz, and for subsequent Danish mixes. On February 16, 2021, the organization was acquired by Omaken Sports, a Norwegian gaming investment company.</desc>
+        <winnings>$2,166,672</winnings>
+        <created>26th August 2016</created>
+        <image>heroic</image>
+        <url>https://heroic.gg/teams/cs-go</url>
+    </team>
+    <team>
+        <name>Team Spirit</name>
+        <region>European RMR A</region>
+        <desc>Team Spirit is a Russian esports organization founded in 2015. The organization has been headquartered in Belgrade, Serbia since 2022. </desc>
+        <winnings>$956,653</winnings>
+        <created>6th December 2015</created>
+        <image>spirit</image>
+        <url>https://teamspirit.gg/team/cs-go</url>
+    </team>
+    <team>
+        <name>Team Liquid</name>
+        <region>American RMR</region>
+        <desc>Team Liquid is a professional esports organization founded in the Netherlands in 2000. Originally a StarCraft: Brood War clan, the team switched to StarCraft II during the beta in 2010, and became one of the most successful foreign teams. On January 13, 2015, it was announced that the team had formed a Counter-Strike: Global Offensive division. </desc>
+        <winnings>$5,354,353</winnings>
+        <created>2000</created>
+        <image>liquid</image>
+        <url>https://www.teamliquid.com/players#csgo</url>
+    </team>
+    <team>
+        <name>OG</name>
+        <region>European RMR B</region>
+        <desc>OG is a professional Danish esports organization founded as the Dota 2 team (monkey) Business by Johan "N0tail" Sundstein in August 2015. They entered the Counter-Strike scene in December 2019 with the signing of a newly assembled roster by the organization. </desc>
+        <winnings>$898,192</winnings>
+        <created>28th August 2015</created>
+        <image>og</image>
+        <url>https://ogs.gg/team/og-csgo/</url>
+    </team>
+    <team>
+        <name>Team Vitality</name>
+        <region>European RMR B</region>
+        <desc>Team Vitality is a French esports organization which entered Counter-Strike: Global Offensive in early October 2018. </desc>
+        <winnings>$2,629,805</winnings>
+        <created>5th August 2013</created>
+        <image>vitality</image>
+        <url>https://vitality.gg/en/teams/counter-strike-global-offensive/</url>
+    </team>
+    <team>
+        <name>Evil Geniuses</name>
+        <region>American RMR</region>
+        <desc>Evil Geniuses (often abbreviated as EG) is a professional gaming organization founded in Victoria, Canada in 1999, making them one of the oldest esports brands still active in the scene. The organization initially entered Counter-Strike in the early 2000s, hosting various rosters until 2011. Their successful period in the game came in 2009 when they signed compLexity Gaming's former roster, going on to notably win IEM IV American Championship Finals over compLexity Gaming and besting Fnatic at Beat it! 2010. In 2012, Evil Geniuses shut down their Counter-Strike division, beginning a seven year hiatus from the game. [1] In 2015, Evil Geniuses attempted to sign the GX squad but the deal fell through after the majority of the team received a lifetime ban from Valve events for their involvement in the North American match fixing scandal. [2] On September 26, 2019, Evil Geniuses entered Counter-Strike: Global Offensive with the acquisition of NRG Esports' roster. [3]</desc>
+        <winnings>$1,246,169</winnings>
+        <created>1999</created>
+        <image>evilgeniuses</image>
+        <url>https://evilgeniuses.gg/teams/counter-strike-global-offensive/</url>
+    </team>
+    <team>
+        <name>Cloud9</name>
+        <region>European RMR A</region>
+        <desc>Cloud9 (commonly abbreviated to C9) is an American esports organization founded in 2013. In Counter-Strike: Global Offensive, Cloud9 are well-known for their underdog journey at ELEAGUE Boston 2018, becoming the first (and currently only) North American team to win a Major. </desc>
+        <winnings>$2,683,476</winnings>
+        <created>2013</created>
+        <image>cloud9</image>
+        <url>https://cloud9.gg/teams/csgo/</url>
+    </team>
+    <team>
+        <name>BIG</name>
+        <region>European RMR B</region>
+        <desc>BIG (abbreviation for Berlin International Gaming) is a German esports organization formed in 2017 by the former NRG Esports players Fatih "gob b" Dayik, Nikola "LEGIJA" Ninić and Johannes "tabseN" Wodarz.</desc>
+        <winnings>$1,711,158</winnings>
+        <created>2nd January 2017</created>
+        <image>big</image>
+        <url>https://bigclan.gg/teams/cs-go/</url>
+    </team>
+    <team>
+        <name>Bad News Eagles</name>
+        <region>European RMR A</region>
+        <desc>Bad News Eagles is an organizationless Kosovar professional Counter-Strike: Global Offensive team. </desc>
+        <winnings>$65,145</winnings>
+        <created>5th February 2022</created>
+        <image>eagles</image>
+        <url>https://play.esea.net/teams/8777731</url>
+    </team>
+    <team>
+        <name>MOUZ</name>
+        <region>European RMR B</region>
+        <desc>MOUZ (formerly known as mousesports) is a German professional gaming organization based in Hamburg. It fields teams in many different games and is particularly known for the company's successful Counter-Strike teams. </desc>
+        <winnings>$3,957,087</winnings>
+        <created>24th March 2002</created>
+        <image>mouz</image>
+        <url>https://mousesports.com/teams/csgo/</url>
+    </team>
+    <team>
+        <name>9z Team</name>
+        <region>American RMR</region>
+        <desc>9z Team is an Argentinian esports organization. </desc>
+        <winnings>$180,685</winnings>
+        <created>18th August 2018</created>
+        <image>ninez</image>
+        <url>https://play.esea.net/teams/8735607</url>
+    </team>
+    <team>
+        <name>Team GamerLegion</name>
+        <region>European RMR A</region>
+        <desc>Team GamerLegion is a German esports organization founded in 2017. They are mostly known for their League of Legends team, but they also field active rosters in Global Offensive and Age of Empires. </desc>
+        <winnings>$193,100</winnings>
+        <created>13th April 2017</created>
+        <image>gamerlegion</image>
+        <url>https://gamerlegion.gg/en/esport/counter-strike-global-offensive</url>
+    </team>
+    <team>
+        <name>Outsiders</name>
+        <region>European RMR B</region>
+        <desc>Outsiders is a Russian tag that was created by Virtus.pro in the wake of the Russian invasion of Ukraine. Due to Virtus.pro's ownership group having ties to companies and individuals sanctioned by the American and European governments, the Outsiders tag was created as a neutral name for the team.</desc>
+        <winnings>$138,750</winnings>
+        <created>4th March 2022</created>
+        <image>outsiders</image>
+        <url>https://virtus.pro/en/lineup/csgo</url>
+    </team>
+    <team>
+        <name>00 Nation</name>
+        <region>American RMR</region>
+        <desc>00 Nation, also known as ZeroZero Nation, is an esports organization acquired by Nordavind on July 6, 2021. </desc>
+        <winnings>$35,125</winnings>
+        <created>2021</created>
+        <image>zerozeronation</image>
+        <url>https://00nation.com/</url>
+    </team>
+    <team>
+        <name>FURIA Esports</name>
+        <region>American RMR</region>
+        <desc>FURIA Esports is a Brazilian esports organization that was founded in August 2017 by Jaime "raizen" Pádua. The team is currently located in the United States. </desc>
+        <winnings>$1,458,920</winnings>
+        <created>8th August 2018</created>
+        <image>furia</image>
+        <url>https://play.esea.net/teams/8696340</url>
+    </team>
+    <team>
+        <name>Fnatic</name>
+        <region>European RMR A</region>
+        <desc>Fnatic (often stylized as fnatic and abbreviated to FNC) is a British professional esports organization. Being founded on July 23, 2004, the organization has been a mainstay in the Counter-Strike, Counter-Strike: Source, and Counter-Strike: Global Offensive scenes, primarily hosting Swedish lineups. They were notably the first organization to win three Majors, having won the inaugural DreamHack Winter 2013, alongside ESL One: Katowice 2015 and ESL One: Cologne 2015. </desc>
+        <winnings>$5,717,382</winnings>
+        <created>23rd August 2004</created>
+        <image>fnatic</image>
+        <url>https://fnatic.com/esports/csgo</url>
+    </team>
+    <team>
+        <name>IHC Esports</name>
+        <region>Asia-Pacific RMR</region>
+        <desc>IHC Esports is a Mongolian esports organization founded in December 2021. </desc>
+        <winnings>$37,434</winnings>
+        <created>6th March 2022</created>
+        <image>ihc</image>
+        <url>https://play.esea.net/teams/8755919</url>
+    </team>
+    <team>
+        <name>Imperial Esports</name>
+        <region>American RMR</region>
+        <desc>Imperial Esports (formerly stylized as Imperial e-Sports) is a Brazilian professional esports organization. Mostly known for their Crossfire team, they entered Counter-Strike: Global Offensive by acquiring former Santos e-Sports players SHOOWTiME, tifa and dzt, with former YeaH Gaming players zqk and shz joining them. </desc>
+        <winnings>$137,386</winnings>
+        <created>9th March 2018</created>
+        <image>imperial</image>
+        <url>https://liquipedia.net/counterstrike/Imperial_Esports</url>
+    </team>
+    <team>
+        <name>Grayhound Gaming</name>
+        <region>Asia-Pacific RMR</region>
+        <desc>Grayhound Gaming is an Australian esports organization. The organization returned to Counter-Strike: Global Offensive after ORDER filed for bankrupcy. </desc>
+        <winnings>$235,454</winnings>
+        <created>March 2017</created>
+        <image>grayhound</image>
+        <url>https://liquipedia.net/counterstrike/Grayhound_Gaming</url>
+    </team>
+</dataroot>
