@@ -1,0 +1,9 @@
+# test
+
+n = 2;
+limit = 10;
+while (n <= limit){
+    write n;
+    n = n + 1;
+}
+

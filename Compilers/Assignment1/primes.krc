@@ -1,0 +1,23 @@
+# Generate the primes from 2 to 100 
+
+n = 2;
+limit = 100;
+while (n <= limit){
+    cand = 2;
+    nonprime = 0;
+    
+    while (cand < n){  
+       if ( (n/cand)*cand == n ){  
+         nonprime = 1;
+       }
+	     
+       cand = cand + 1;
+    }
+      
+    if (nonprime == 0){  
+         write n;
+    }
+  
+    n = n + 1;
+}
+
