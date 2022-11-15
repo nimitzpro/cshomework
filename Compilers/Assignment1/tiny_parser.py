@@ -36,7 +36,7 @@ class TinyParser:
         while self.__scanner.current.kind in {"ID", "READ", "WRITE", "REPEAT", 
                                     "IF", "UNTIL"}:
             if looping:
-                if self._scanner.current.kind == "UNTIL":
+                if self.__scanner.current.kind == "UNTIL":
                     return PTNode("statement_list", children)
 
             children.append(self.parse_statement())
@@ -75,7 +75,7 @@ class TinyParser:
             "Parsing <compound_stmt> -> CLPAREN <statement_list> CRPAREN")
         self.__scanner.match(" ")
         c = self.parse_statement_list()
-        self.__scanner.match(" ")
+        # self.__scanner.match(" ")
         return PTNode("compound_stmt", [c])
         
     def parse_simple_stmt(self):     
@@ -90,11 +90,12 @@ class TinyParser:
         
         if self.__scanner.current.kind == "ID":
             c = self.parse_assign_stmt()
+            self.__scanner.match("SEMI")
         elif self.__scanner.current.kind == "READ":
             c= self.parse_read_stmt()
+            self.__scanner.match("SEMI")
         elif self.__scanner.current.kind == "WRITE":
             c= self.parse_write_stmt()
-        self.__scanner.match("SEMI")
         return PTNode("simple_stmt", [c])
     
     def parse_selection_stmt(self):     
@@ -254,12 +255,11 @@ class TinyParser:
         self.__scanner.log(
             "Parsing <factor> -> LPAREN <expression> RPAREN | ID | INT")
     
-        if self.__scanner.current.kind == " ":
-            self.__scanner.match(" ")
-            c = self.parse_expression()
-            self.__scanner.match(" ")
-            return PTNode("factor", [c])
-        elif self.__scanner.current.kind in {"ID", "INT"}:
+        # if self.__scanner.current.kind == "ID":
+        #     self.__scanner.match("ID")
+        #     c = self.parse_expression()
+        #     return PTNode("factor", [c])
+        if self.__scanner.current.kind in {"ID", "INT"}:
             val = self.__scanner.current.value
             self.__scanner.advance()
             return PTNode("factor", [], val)

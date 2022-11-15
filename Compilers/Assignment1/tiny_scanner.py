@@ -17,11 +17,11 @@ import traceback
 # Define RE to caputure Tiny comments.
 COMMENT_RE = re.compile(r"{.*}")
 
-# Define RE to capture Kroc tokens.
+# Define RE to capture Tiny tokens.
 TOKENS_RE = re.compile(r"[a-z]+"
                        r"|[0-9]+"
                        r"|[(){}+*/;\-]"
-                       r"|==|!=|<=|<|>=|>|="
+                       r"|==|!=|<=|<|>=|>|=|:="
     )
 
 # Define Tiny's reserved words and their labels. 'EOS' (end of source
@@ -31,7 +31,7 @@ RESERVED_WORDS = {
     "if" : "IF", "then" : "THEN", "else" : "ELSE", "end" : "END", "EOS" : "EOS"
     }
 
-# Define Kroc's repertiore of symbols and their labels.
+# Define Tiny's repertiore of symbols and their labels.
 SYMBOLS = {
     ";" : "SEMI", ":=" : "ASSIGN",
     "<=" : "LTE", "<" : "LT",  ">" : "GT",  
@@ -54,7 +54,6 @@ class TinyToken:
         """
         self.string = tkn
         self.value = tkn
-        
         if tkn.isalpha():
             self.spelling = tkn
             if tkn in RESERVED_WORDS:
@@ -67,6 +66,7 @@ class TinyToken:
             self.value = int(tkn)
         elif tkn in SYMBOLS:
             self.kind = SYMBOLS[tkn]
+            # print(self.kind)
         else:
             self.shriek("Illegal symbol '%s'." % tkn)
     
@@ -76,7 +76,7 @@ class TinyToken:
                % (self.string, self.kind) )
 
 class TinyScanner:
-    """ Implement class to perform lexical analysis on Kroc source.
+    """ Implement class to perform lexical analysis on Tiny source.
     """
    
     def __init__(self, fpath, verbose = False):
@@ -156,6 +156,8 @@ class TinyScanner:
 
 def main():
     t = TinyScanner("tny_files/onetoten.tny", verbose=True)
+    while t.has_more():
+        t.advance()
 
 if __name__=="__main__":
     main()

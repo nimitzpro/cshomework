@@ -262,7 +262,7 @@ class KrocParser:
             
 if __name__ == "__main__":
 
-    fpath = "primes.krc"
+    fpath = "onetoten.krc"
   
     parser = KrocParser(fpath)
     ptroot = parser.parse_program()
