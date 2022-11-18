@@ -15,12 +15,12 @@
 <assignstmt > ::= identifier := <exp>
 <readstmt > ::= read identifier
 <writestmt > ::= write <exp>
-<exp> ::= <simple-expr> <comp-op> <simple-expr>
-      |   <simple-expr>
-<comp-op> ::= < | =
-<simple-expr> ::=<simple-expr> <addop> <term> | <term>
 <addop> ::= + | -
-<term> ::= <term> <mulop> <factor> | <factor>
 <mulop> ::= * | /
 <factor> ::= ( <exp> ) | number | identifier
+<comp-op> ::= < | =
 
+<exp> ::= <simple-expr> <comp-op> <simple-expr>
+      |   <simple-expr>
+<simple-expr> ::=<simple-expr> <addop> <term> | <term>
+<term> ::= <term> <mulop> <factor> | <factor>

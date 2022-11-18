@@ -1,26 +1,19 @@
-#
-# Simple lexical scanner for Tiny programming language
-# Bare-bones implementation with no error checking.
-#
-# Alexander Stradnic 119377263
-#
-#
-# Notes:
-# 1) Python-style # comments only (no /* */)
-# 2) variable names-- letters only
-# 3) unsigned integer constants only
+"""
+Lexical scanner for Tiny.
+Alexander Stradnic 119377263
+"""
 
 import re
 import sys
 import traceback
 
 # Define RE to caputure Tiny comments.
-COMMENT_RE = re.compile(r"{.*}")
+COMMENT_RE = re.compile(r"{(.|\n)+?}")
 
 # Define RE to capture Tiny tokens.
 TOKENS_RE = re.compile(r"[a-z]+"
                        r"|[0-9]+"
-                       r"|[(){}+*/;\-]"
+                       r"|[()+*/;\-]"
                        r"|==|!=|<=|<|>=|>|=|:="
     )
 
@@ -45,6 +38,15 @@ LOGPAD = " " * 10
 class TinyToken:
     """ Implement class to represent Tiny token objects.
     """
+    def log(self,  msg, pad = True):
+        """ Print 'msg'.  Indent if 'pad' is set. """
+        # if self.verbose:
+        print("%s%s" % (LOGPAD if pad else "", msg)) 
+    def shriek(self, msg):
+        """ Print error message 'msg' and terminate execution.
+        """
+        self.log("*** TinyToken: %s" % msg, pad = False)
+        sys.exit(-1)
     def __init__(self, tkn):
         """ Create a token object for 'tkn'.
         Public members:
@@ -155,7 +157,7 @@ class TinyScanner:
 
 
 def main():
-    t = TinyScanner("tny_files/onetoten.tny", verbose=True)
+    t = TinyScanner("tny_files/fact.tny", verbose=True)
     while t.has_more():
         t.advance()
 

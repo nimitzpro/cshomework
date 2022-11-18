@@ -1,7 +1,5 @@
 """
-Tree-building parser for Tiny programming language. Returns
-a complete parse tree. No attempt to optimize tree.
-
+Tree-building parser for Tiny.
 Alexander Stradnic 119377263
 """
 
@@ -19,125 +17,125 @@ class TinyParser:
    
     def parse_program(self):
         """ Parse tokens matching following production:
-        <program> -> <statement_list>
+        <program> -> <stmtseq>
         """
-        self.__scanner.log("Parsing <program> -> <statement_list>")
-        c = self.parse_statement_list()
+        self.__scanner.log("Parsing <program> -> <stmtseq>")
+        c = self.parse_stmtseq()
         return PTNode("program", [c])
 
-    def parse_statement_list(self, looping=False):     
+    def parse_stmtseq(self, looping=False):     
         """ Parse tokens matching following production:
-        <statement_list> -> {<statement>}
+        <stmtseq> -> <stmtseq> ; <statement>
+           |   <statement>
         """
-        self.__scanner.log("Parsing <statement_list> -> {<statement>}")
+        self.__scanner.log("Parsing <stmtseq> -> <stmtseq> ; <statement>"
+           "|   <statement>")
         
         c = self.parse_statement()
         children = [c]
+        statement = 1
         while self.__scanner.current.kind in {"ID", "READ", "WRITE", "REPEAT", 
-                                    "IF", "UNTIL"}:
+                                    "IF", "UNTIL", "SEMI"}:
             if looping:
                 if self.__scanner.current.kind == "UNTIL":
-                    return PTNode("statement_list", children)
+                    return PTNode("stmtseq", children)
 
-            children.append(self.parse_statement())
+            if statement:
+                if self.__scanner.current.kind == "SEMI":
+                    self.__scanner.match("SEMI")
+                    statement = 0
+                else:
+                    self.__scanner.shriek("missing ';'")
+            else:
+                children.append(self.parse_statement())
+                statement = 1
             
-        return PTNode("statement_list", children)
+        return PTNode("stmtseq", children)
     
     def parse_statement(self):     
         """ Parse tokens matching following production:
                 <statement> -> 
-                    <simple_stmt>  | <compound_stmt>
-                    | <selection_stmt>|  <iteration_stmt>
+                    <simple-expr>  |
+                    | <ifstmt>|  <repeatstmt>
         """
     
-        self.__scanner.log("Parsing <statement> ->" 
-                    "<simple_stmt>  | <compound_stmt>"
-                    "| <selection_stmt>|  <iteration_stmt>")
+        self.__scanner.log("Parsing <statement> -> " 
+            "    <ifstmt> "
+            "|   <repeatstmt>"
+            "|   <assignstmt>"
+            "|   <readstmt>"
+            "|   <writestmt>")
         
-
-        if self.__scanner.current.kind in {"ID", "READ", "WRITE"}:
-            c = self.parse_simple_stmt()
+        c = []
+        if self.__scanner.current.kind == "IF":
+            c = self.parse_ifstmt()
         elif self.__scanner.current.kind == "REPEAT":
-            c = self.parse_iteration_stmt()
-        elif self.__scanner.current.kind == "IF":
-            c = self.parse_selection_stmt()
-        else:
-            c = self.parse_compound_stmt()
-        return PTNode("statement", [c])
-       
-        return PTNode("statement", [])
-    
-    def parse_compound_stmt(self):     
-        """ Parse tokens matching following production:
-                <compound_stmt> -> CLPAREN <statement_list> CRPAREN
-        """
-        self.__scanner.log(
-            "Parsing <compound_stmt> -> CLPAREN <statement_list> CRPAREN")
-        self.__scanner.match(" ")
-        c = self.parse_statement_list()
-        # self.__scanner.match(" ")
-        return PTNode("compound_stmt", [c])
-        
-    def parse_simple_stmt(self):     
-        """ Parse tokens matching following production:
-                <simple_stmt> -> 
-                    <assign_stmt> SEMI | <read_stmt> SEMI 
-                    | <write_stmt> SEMI| SEMI
-        """
-        self.__scanner.log("Parsing <simple_stmt> ->" 
-                    "<assign_stmt> SEMI | <read_stmt> SEMI" 
-                    "| <write_stmt> SEMI| SEMI")
-        
-        if self.__scanner.current.kind == "ID":
-            c = self.parse_assign_stmt()
-            self.__scanner.match("SEMI")
+            c = self.parse_repeatstmt()
+        elif self.__scanner.current.kind == "ID":
+            c = self.parse_assignstmt()
         elif self.__scanner.current.kind == "READ":
-            c= self.parse_read_stmt()
-            self.__scanner.match("SEMI")
+            c = self.parse_read_stmt()
         elif self.__scanner.current.kind == "WRITE":
-            c= self.parse_write_stmt()
-        return PTNode("simple_stmt", [c])
-    
-    def parse_selection_stmt(self):     
+            c = self.parse_writestmt()
+        return PTNode("statement", [c])
+        
+    def parse_simple_expr(self):     
         """ Parse tokens matching following production:
-                <selection_stmt> -> 
-                    IF LPAREN <condition> RPAREN <statement> 
-                    |  IF LPAREN <simple_expression> RPAREN 
-                            ELSE <statement>
+                <simple-expr> ->
+                <simple-expr> <addop> <term> 
+                | <term>
         """
-        self.__scanner.log("Parsing <selection_stmt> ->" 
-                    "IF <condition> THEN <statement> END"
-                    "|  IF <simple_expression> THEN <statement> "
-                    "      ELSE <statement> END")
+        self.__scanner.log("Parsing <simple-expr> ->" 
+                "<simple-expr> <addop> <term> "
+                "| <term>")
+        
+        f = self.parse_term()
+        children = [f]
+        while self.__scanner.current.kind in {"PLUS", "MINUS"}:
+            m = self.parse_addop()
+            children.append(m)
+            f = self.parse_simple_expr()
+            children.append(f)
+        
+        return PTNode("simple-expr", children)
+    
+    def parse_ifstmt(self):     
+        """ Parse tokens matching following production:
+                <ifstmt> -> 
+                    IF <exp> THEN <stmtseq> END
+        |   IF <exp> THEN <stmtseq> ELSE <stmtseq> END
+        """
+        self.__scanner.log("<ifstmt> -> "
+                    "IF <exp> THEN <stmtseq> END"
+        "|   IF <exp> THEN <stmtseq> ELSE <stmtseq> END")
         
         self.__scanner.match("IF")
-        c = self.parse_condition()
+        c = self.parse_exp()
         self.__scanner.match("THEN")
-        s1 = self.parse_statement()
+        s1 = self.parse_stmtseq()
         children = [c, s1] 
         if self.__scanner.current.kind == "ELSE":
             self.__scanner.match("ELSE")
-            s2 = self.parse_statement()
+            s2 = self.parse_stmtseq()
             children.append(s2)
-            children.append(end)
-        else:
-            end = self.__scanner.match("END")
-            children.append(end)
-        return PTNode("selection_stmt", children)    
+            
+        self.__scanner.match("END")
+
+        return PTNode("ifstmt", children)    
     
     
-    def parse_iteration_stmt(self):     
+    def parse_repeatstmt(self):     
         """ Parse tokens matching following production:
-                <iteration_stmt> -> 
+                <repeatstmt> -> 
                     REPEAT <stmtseq> UNTIL <condition>
         """
-        self.__scanner.log("Parsing <iteration_stmt> ->" 
+        self.__scanner.log("Parsing <repeatstmt> ->" 
                     " REPEAT <stmtseq> UNTIL <exp>")
         self.__scanner.match("REPEAT")
-        s = self.parse_statement_list(looping=True)
+        s = self.parse_stmtseq(looping=True)
         self.__scanner.match("UNTIL")
-        c = self.parse_condition()
-        return PTNode("iteration_stmt", [c, s]) 
+        c = self.parse_exp()
+        return PTNode("repeatstmt", [c, s])
 
     def parse_read_stmt(self):     
         """ Parse tokens matching following production:
@@ -150,67 +148,50 @@ class TinyParser:
         return PTNode("read_stmt", [], value = varname) 
         
 
-    def parse_write_stmt(self):     
+    def parse_writestmt(self):     
         """ Parse tokens matching following production:
-                <write_stmt>  -> WRITE <exp>
+                <writestmt>  -> WRITE <exp>
         """
-        self.__scanner.log("Parsing <write_stmt>  -> WRITE <exp>")
+        self.__scanner.log("Parsing <writestmt>  -> WRITE <exp>")
         self.__scanner.match("WRITE")
-        e = self.parse_expression()
-        return PTNode("write_stmt", [e]) 
+        e = self.parse_exp()
+        return PTNode("writestmt", [e]) 
 
-    def parse_assign_stmt(self):     
+    def parse_assignstmt(self):     
         """ Parse tokens matching following production:
-                <assign_stmt> ->  ID ASSIGN <expression>
+                <assignstmt> ->  ID ASSIGN <exp>
         """
-        self.__scanner.log("Parsing <assign_stmt> ->  ID ASSIGN <expression>")
+        self.__scanner.log("Parsing <assignstmt> ->  ID ASSIGN <exp>")
         identifier = self.__scanner.match("ID")
         self.__scanner.match("ASSIGN")
-        e = self.parse_expression()
-        return PTNode("assign_stmt", [e], value = identifier) 
+        e = self.parse_exp()
+        return PTNode("assignstmt", [e], value = identifier)
 
-    def parse_condition(self):     
+    def parse_comp_op(self):     
         """ Parse tokens matching following production:
-                <condition> -> <expression> <relop> <expression> 
-                    | <expression>
+                <comp-op> -> LTE | LT | GT | GTE| EQ | NOTEQ
         """
         self.__scanner.log(
-            "Parsing <condition> -> <expression> <relop> <expression>" 
-                    "| <expression>")
-        
-        children = [self.parse_expression()]
-        if self.__scanner.current.kind in {"EQ", 
-                "NOTEQ", "LT", "LTE", "GT", "GTE"}:
-            r = self.parse_relop()
-            children.append(r)
-            self.__scanner.advance()
-            e = self.parse_expression()
-            children.append(e)
-        return PTNode("condition", children)     
-    
+            "Parsing <comp-op> -> LTE | LT | GT | GTE| EQ | NOTEQ")
+        return PTNode("comp-op", [], value = self.__scanner.current.value)
 
-    def parse_relop(self):     
+    def parse_exp(self):     
         """ Parse tokens matching following production:
-                <relop> -> LTE | LT | GT | GTE| EQ | NOTEQ
+                <exp> -> <simple-expr> <comp-op> <simple-expr>
+      |   <simple-expr>
         """
-        self.__scanner.log(
-            "Parsing <relop> -> LTE | LT | GT | GTE| EQ | NOTEQ")
-        return PTNode("relop", [], value = self.__scanner.current.value)
-
-    def parse_expression(self):     
-        """ Parse tokens matching following production:
-                <expression> -> <term> {<addop> <term>}
-        """
-        self.__scanner.log("Parsing <expression> -> <term> {<addop> <term>}")
+        self.__scanner.log("Parsing <exp> -> <simple-expr> <comp-op> <simple-expr> "
+            "|   <simple-expr>")
         
-        t = self.parse_term()
+        t = self.parse_simple_expr()
         children = [t]
-        while self.__scanner.current.kind in {"PLUS", "MINUS"}:
-            a = self.parse_addop()
-            children.append(a)
-            t = self.parse_term()
+        while self.__scanner.current.kind in {"LTE", "LT", "GT", "GTE", "EQ", "NOTEQ"}:
+            t = self.parse_comp_op()
             children.append(t)
-        return PTNode("expression", children)        
+            self.__scanner.advance()
+            z = self.parse_simple_expr()
+            children.append(z)
+        return PTNode("exp", children)        
 
     def parse_addop(self):     
         """ Parse tokens matching following production:
@@ -225,9 +206,9 @@ class TinyParser:
 
     def parse_term(self):     
         """ Parse tokens matching following production:
-                <term> -> <factor> {<mulop> <factor>}
+                <term> -> <term> <mulop> <factor> | <factor>
         """
-        self.__scanner.log("Parsing <term> -> <factor> {<mulop> <factor>}")
+        self.__scanner.log("Parsing <term> -> <term> <mulop> <factor> | <factor>")
     
         f = self.parse_factor()
         children = [f]
@@ -242,7 +223,7 @@ class TinyParser:
         """ Parse tokens matching following production:
                 <mulop> -> TIMES| OVER
         """
-        self.__scanner.log("Parsing <mulop> -> TIMES| OVER")
+        self.__scanner.log("Parsing <mulop> -> TIMES | OVER")
         r = PTNode("mulop",  [], value = self.__scanner.current.value)
         if self.__scanner.current.kind in {"TIMES", "OVER"}:
             self.__scanner.advance()
@@ -250,25 +231,26 @@ class TinyParser:
 
     def parse_factor(self):     
         """ Parse tokens matching following production:
-                <factor> -> LPAREN <expression> RPAREN | ID | NUM
+                <factor> -> LPAREN <exp> RPAREN | INT | ID
         """
         self.__scanner.log(
-            "Parsing <factor> -> LPAREN <expression> RPAREN | ID | INT")
+            "Parsing <factor> -> LPAREN <exp> RPAREN | INT | ID")
     
-        # if self.__scanner.current.kind == "ID":
-        #     self.__scanner.match("ID")
-        #     c = self.parse_expression()
-        #     return PTNode("factor", [c])
-        if self.__scanner.current.kind in {"ID", "INT"}:
+        if self.__scanner.current.kind == "LPAREN":
+            self.__scanner.match("LPAREN")
+            c = self.parse_exp()
+            self.__scanner.match("RPAREN")
+            return PTNode("factor", [c])
+        elif self.__scanner.current.kind in {"ID", "INT"}:
             val = self.__scanner.current.value
             self.__scanner.advance()
-            return PTNode("factor", [], val)
+            return PTNode("factor", [], value =  val)
         else:
             self.__scanner.shriek("I'm lost . . .")
             
 if __name__ == "__main__":
 
-    fpath = "tny_files/onetoten.tny"
+    fpath = "tny_files/fact.tny"
   
     parser = TinyParser(fpath)
     ptroot = parser.parse_program()

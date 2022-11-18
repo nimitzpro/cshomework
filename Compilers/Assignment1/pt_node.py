@@ -13,17 +13,19 @@ class PTNode():
         self.label = label
         self.value = value
         self.children = children
-        
+        # print("NODE ADDED: ", self.label, self.value, [str(c) for c in self.children])
+
     def __str__(self):
         if self.value is None:
-            return "[%s]" % (self.label)
+            return "<%s>" % (self.label)
         elif type(self.value) == str:
-            return "[%s ('%s')]" % (self.label, self.value)
+            return "<%s ('%s')>" % (self.label, self.value)
         else:
-            return "[%s (%s)]" % (self.label, str(self.value))
+            return "<%s (%s)>" % (self.label, str(self.value))
     
     def dump(self, level = 0):
         print("   " * level + str(self))
+        # print(self.value, self.children)
         for c in reversed(self.children):
             c.dump(level + 1)
        
