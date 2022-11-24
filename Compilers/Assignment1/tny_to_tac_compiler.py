@@ -1,30 +1,29 @@
 """
-Tree-walking  compiler for the Kroc programming language. Generates
-three-address code. Performs no error checking.
+Tree-walking compiler for the Tiny programming language.
 
-Kieran Herley, June 2020.
+Alexander Stradnic 119377263
 
 To Do:
 1) Divert output to file rather than standard output.
 2) Use __t123 and __l456 convention for tmporary variables and labels.
 """
 
-from kroc_parser import *
+from tiny_parser import *
 from pt_node import *
 import sys
 
-class KrocCompiler:
+class TinyCompiler:
 
     def __init__(self, sourcepath):
-        """ Create a compiler object for Kroc program with source at
+        """ Create a compiler object for Tiny program with source at
         'sourcepath'.
         """
-        self.parse_tree = KrocParser(sourcepath).parse_program()
+        self.parse_tree = TinyParser(sourcepath).parse_program()
         self.__varcount = 0
         self.__labcount = 0
       
     def translate(self):
-        """ Generate three-address code for the Kroc program represented
+        """ Generate three-address code for the Tiny program represented
         by the parse-tree name 'parse_tree'. Output appears in standard
         output. 
         """
@@ -187,8 +186,8 @@ class KrocCompiler:
             
 if __name__ == "__main__":
 
-    fpath = "krc_files/testkroc.krc"
-    compiler = KrocCompiler(fpath)
+    fpath = "krc_files/testtiny.krc"
+    compiler = TinyCompiler(fpath)
     print("Compiler output:")
     print("-" * 25)
     compiler.translate()

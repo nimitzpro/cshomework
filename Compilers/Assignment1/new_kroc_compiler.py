@@ -187,7 +187,7 @@ class KrocCompiler:
             
 if __name__ == "__main__":
 
-    fpath = "krc_files/testkroc.krc"
+    fpath = "primes.krc"
     compiler = KrocCompiler(fpath)
     print("Compiler output:")
     print("-" * 25)
