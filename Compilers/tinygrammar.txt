@@ -1,26 +1,27 @@
 "Untreated" Tiny grammar taken from Louden
 ==========================================
 
-<program > ::= <stmtseq>
-<stmtseq > ::= <stmtseq> ; <statement>
-           |   <statement>
-<statement> ::= <ifstmt> >
+<program> ::= <stmtseq>
+<stmtseq> ::= <stmtseq> ; <statement>
+            |   <statement>
+<statement> ::= <ifstmt>
             |   <repeatstmt>
             |   <assignstmt>
             |   <readstmt>
             |   <writestmt>
 <ifstmt> ::= if <exp> then <stmtseq> end
-         |   if <exp> then <stmtseq> else <stmtseq> end
-<repeatstmt > ::= repeat <stmtseq> until <exp>
-<assignstmt > ::= identifier := <exp>
-<readstmt > ::= read identifier
-<writestmt > ::= write <exp>
+            |   if <exp> then <stmtseq> else <stmtseq> end
+<repeatstmt> ::= repeat <stmtseq> until <exp>
+<assignstmt> ::= identifier := <exp>
+<readstmt> ::= read identifier
+<writestmt> ::= write <exp>
 <addop> ::= + | -
 <mulop> ::= * | /
 <factor> ::= ( <exp> ) | number | identifier
 <comp-op> ::= < | =
-
 <exp> ::= <simple-expr> <comp-op> <simple-expr>
-      |   <simple-expr>
+            |   <simple-expr>
 <simple-expr> ::=<simple-expr> <addop> <term> | <term>
 <term> ::= <term> <mulop> <factor> | <factor>
+
+also <leaf ([val])> nodes for values added

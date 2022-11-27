@@ -23,7 +23,7 @@ class TacReader:
         for line in self.__source:
             currtkn = None
             
-            print("Processing line '%s'" % line)
+            # print("Processing line '%s'" % line)
         
             line = COMMENT.sub("", line)
             
@@ -206,9 +206,11 @@ class TacExecutable (TacProgram):
             else:
                 print("Unknown instruction %s" % str(instr)) 
    
+if __name__ == "__main__":
+    # tr = TacReader("tac_files/handwrittenTAC.tac")
+    tr = TacReader("trees/factorial_pt_kh.tac")
+    # tr = TacReader("tny_files/ifelse.tac")
+    p = tr.program
+    p.show()
 
-tr = TacReader("t2.tac")
-p = tr.program
-p.show()
-
-p.execute()
+    p.execute()

@@ -1,0 +1,73 @@
+<program>
+   <stmtseq>
+      <statement>
+         <ifstmt>           
+            <stmtseq>
+               <statement>
+                  <writestmt>
+                     <exp>
+                        <simple_expr> 
+                           <term>     
+                              <factor>
+                                 <leaf ('fact')>
+               <statement>
+                  <repeatstmt>
+                     <exp>
+                        <simple_expr>
+                           <term>
+                              <factor>
+                                 <leaf ('0')>
+                        <comp_op>
+                           <leaf ('=')>
+                        <simple_expr>
+                           <term>
+                              <factor>
+                                 <leaf ('x')>
+                     <stmtseq>
+                        <statement>
+                           <assignstmt>
+                              <exp>
+                                 <simple_expr>
+                                    <term>
+                                       <factor>
+                                          <leaf ('1')>
+                                    <addop>
+                                       <leaf ('-')>
+                                    <term>
+                                       <factor>
+                                          <leaf ('x')>
+                              <leaf ('x')>
+                        <statement>
+                           <assignstmt>
+                              <exp>
+                                 <simple_expr>
+                                    <term>
+                                       <factor>
+                                          <leaf ('x')>
+                                       <mulop>
+                                          <leaf ('*')>
+                                       <factor>
+                                          <leaf ('fact')>
+                              <leaf ('fact')>
+               <statement>
+                  <assignstmt>
+                     <exp>
+                        <simple_expr>
+                           <term>
+                              <factor>
+                                 <leaf ('1')>
+                     <leaf ('fact')>
+            <exp>
+               <simple_expr>
+                  <term>
+                     <factor>
+                        <leaf ('x')>
+               <comp_op>
+                  <leaf ('<')>
+               <simple_expr>
+                  <term>
+                     <factor>
+                        <leaf ('0')>
+      <statement>
+         <readstmt>
+            <leaf ('x')>

@@ -13,7 +13,7 @@ import pickle
 class TinyParser:
     
     def __init__(self, sourcepath):
-        self.__scanner = TinyScanner(sourcepath, verbose = True)
+        self.__scanner = TinyScanner(sourcepath, verbose = False)
    
     def parse_program(self):
         """ Parse tokens matching following production:
@@ -145,7 +145,7 @@ class TinyParser:
         self.__scanner.match("READ")
         varname = self.__scanner.current.value
         self.__scanner.match("ID")
-        return PTNode("read_stmt", [], value = varname) 
+        return PTNode("readstmt", [PTNode("leaf", [], value = varname)]) 
         
 
     def parse_writestmt(self):     
@@ -165,7 +165,7 @@ class TinyParser:
         identifier = self.__scanner.match("ID")
         self.__scanner.match("ASSIGN")
         e = self.parse_exp()
-        return PTNode("assignstmt", [e], value = identifier)
+        return PTNode("assignstmt", [PTNode("leaf", [], value = identifier), e])
 
     def parse_comp_op(self):     
         """ Parse tokens matching following production:
@@ -173,7 +173,7 @@ class TinyParser:
         """
         self.__scanner.log(
             "Parsing <comp-op> -> LTE | LT | GT | GTE| EQ | NOTEQ")
-        return PTNode("comp-op", [], value = self.__scanner.current.value)
+        return PTNode("comp-op", [PTNode("leaf", [], value = self.__scanner.current.value)])
 
     def parse_exp(self):     
         """ Parse tokens matching following production:
@@ -198,7 +198,7 @@ class TinyParser:
                 <addop> ->   PLUS | MINUS
         """
         self.__scanner.log("Parsing <addop> ->   PLUS | MINUS")
-        r = PTNode("addop",  [], value = self.__scanner.current.value)
+        r = PTNode("addop",  [PTNode("leaf", [], value = self.__scanner.current.value)])
         
         if self.__scanner.current.kind in {"PLUS", "MINUS"}:
             self.__scanner.advance()
@@ -224,7 +224,7 @@ class TinyParser:
                 <mulop> -> TIMES| OVER
         """
         self.__scanner.log("Parsing <mulop> -> TIMES | OVER")
-        r = PTNode("mulop",  [], value = self.__scanner.current.value)
+        r = PTNode("mulop",  [PTNode("leaf", [], value = self.__scanner.current.value)])
         if self.__scanner.current.kind in {"TIMES", "OVER"}:
             self.__scanner.advance()
         return r
@@ -244,13 +244,13 @@ class TinyParser:
         elif self.__scanner.current.kind in {"ID", "INT"}:
             val = self.__scanner.current.value
             self.__scanner.advance()
-            return PTNode("factor", [], value =  val)
+            return PTNode("factor", [PTNode("leaf", [], value =  val)])
         else:
             self.__scanner.shriek("I'm lost . . .")
             
 if __name__ == "__main__":
 
-    fpath = "tny_files/fact.tny"
+    fpath = "tny_files/ifelse.tny"
   
     parser = TinyParser(fpath)
     ptroot = parser.parse_program()
